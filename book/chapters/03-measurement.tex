@@ -1,0 +1,447 @@
+% Line Atlas chapter draft.
+% Suggested dependencies: amsmath, amssymb, siunitx, booktabs, tabularx,
+% tikz, pgfplots, xcolor, hyperref.
+
+\chapter{Practical Spectroscopy and Measurement}
+\label{chap:practical-spectroscopy}
+\chaptermark{Practical Spectroscopy and Measurement}
+
+The most elegant plasma diagnostic is only as reliable as the chain that connects a
+photon to a number in a table.  Raw exposures contain detector signatures, sky and
+thermal backgrounds, atmospheric absorption, cosmic rays, geometric distortion, and
+an instrumental line-spread function.  Reduction removes or models these effects but
+also introduces correlations and choices.  The final spectrum is not simply the sky
+spectrum with noise added; it is the output of an estimator.
+
+This chapter presents a practical workflow that applies across long-slit, fiber,
+echelle, and integral-field spectroscopy.  Instrument-specific pipelines remain
+essential, but the underlying bookkeeping is common.  Useful extended discussions
+include \citet{Gray2005}, \citet{Howell2006}, and the optimal extraction method of
+\citet{Horne1986}.
+
+\section{Design the observation around the inference}
+
+An observing proposal should begin with the physical comparison that will be made,
+not with a list of attractive transitions.  For each required line, record:
+\begin{itemize}
+ \item its observed wavelength range after redshift and expected velocity offsets;
+ \item the continuum or background against which it will be measured;
+ \item expected flux, surface brightness, width, and spatial extent;
+ \item nearby blends, sky lines, telluric bands, detector gaps, and order edges;
+ \item the angular and spectral resolution required to distinguish the alternatives;
+ \item whether the key observable is integrated flux, equivalent width, profile
+ shape, centroid, doublet ratio, or spatial morphology.
+\end{itemize}
+
+The resolving power is
+\begin{equation}
+ R\equiv\frac{\lambda}{\Delta\lambda},
+ \qquad \Delta v\simeq\frac{c}{R},
+ \label{eq:resolving-power}
+\end{equation}
+where $\Delta\lambda$ and $\Delta v$ must refer to a stated width convention, often
+the FWHM of the line-spread function (LSF).  Pixel sampling and resolution are not the
+same.  Two or more pixels per FWHM avoid gross undersampling, but additional sampling
+does not recover information absent from the optical LSF.
+
+For an unresolved line measured in background-limited data, signal-to-noise improves
+approximately as the square root of exposure time.  Real observations can depart from
+this scaling because of read noise, residual flat-field structure, time-variable sky,
+correlated resampling noise, and systematic background subtraction.  Exposure-time
+calculators should be tested at the surface brightness and extraction aperture of the
+science target rather than only for a point-source continuum.
+
+\subsection{Worked example: can a spectrograph separate two components?}
+
+Suppose two narrow components differ by $80\,\mathrm{km\,s^{-1}}$.  A spectrograph
+with $R=3000$ has an instrumental FWHM near $c/R\simeq100\,\mathrm{km\,s^{-1}}$.
+The components may broaden or skew the feature, but will not be cleanly resolved.
+At $R=10{,}000$, the nominal FWHM is $30\,\mathrm{km\,s^{-1}}$, giving meaningful
+separation if the signal-to-noise is adequate.  This estimate is not a guarantee:
+the actual LSF can have wavelength-dependent wings, and two components with unequal
+flux are harder to identify than equal components.
+
+\section{Calibration frames and detector-level modeling}
+
+A simplified raw detector model is
+\begin{equation}
+ D_{ij}=g^{-1}\left[S_{ij}+B_{ij}+K_{ij}+d_{ij}t\right]
+ +b_{ij}+\epsilon_{ij},
+ \label{eq:detector-model}
+\end{equation}
+where $S$ is source photocharge, $B$ sky or thermal background, $K$ scattered light,
+$g$ gain, $b$ electronic bias, $d$ dark current, and $\epsilon$ stochastic read and
+photon noise.  Nonlinearity, persistence, interpixel capacitance, charge transfer,
+and bad pixels may require additional terms.
+
+Bias or reference-pixel correction removes the electronic zero level.  Dark frames
+estimate thermally generated signal and sometimes hot-pixel behavior.  Flat fields
+measure pixel response and, depending on the instrument, illumination or blaze
+structure.  Arc lamps, etalons, sky lines, or laser combs constrain the mapping from
+detector position to wavelength.  Calibration frames are measurements with their own
+noise and temporal mismatch; they should not be treated as exact arrays.
+
+For CCD-like data in electrons, a basic variance model is
+\begin{equation}
+ V_{ij}=S_{ij}+B_{ij}+K_{ij}+d_{ij}t
+       +n_{\rm read}\sigma_{\rm read}^2,
+ \label{eq:variance-model}
+\end{equation}
+with appropriate gain factors if working in analog-to-digital units.  Operations such
+as flat-field division, interpolation, and sky modeling must propagate variance.
+Cosmic-ray rejection should mark altered samples; replacing a cosmic ray with a local
+interpolation and assigning ordinary variance falsely creates information.
+
+\section{Tracing, wavelength calibration, and rectification}
+
+Spectral traces curve across detectors and may vary with exposure, fiber, slit
+position, or echelle order.  A trace model should be smooth enough to follow optics
+without following pixel noise.  Wavelength calibration fits known features with a
+two-dimensional function $\lambda(x,y)$ or an instrument model.  Precision should be
+evaluated using held-out or independent lines, not merely the residuals of lines used
+in the fit.
+
+Air and vacuum wavelengths must never be mixed silently.  Air's refractive index
+shifts optical wavelengths enough to matter for velocity work.  The reference frame
+must also be stated: topocentric, barycentric, heliocentric, local standard of rest,
+or another convention.  A sign error in the observatory velocity correction can
+exceed the physical signal being sought.
+
+Several velocity definitions coexist.  Relative to a rest frequency $\nu_0$ or
+wavelength $\lambda_0$,
+\begin{align}
+ v_{\rm radio} &= c\left(1-\frac{\nu}{\nu_0}\right),\\
+ v_{\rm optical} &= c\left(\frac{\lambda-\lambda_0}{\lambda_0}\right),\\
+ \beta_{\rm rel} &=
+ \frac{(\lambda/\lambda_0)^2-1}{(\lambda/\lambda_0)^2+1}.
+ \label{eq:velocity-conventions}
+\end{align}
+The first two are approximations that differ at non-negligible redshift.  A catalog
+column named ``velocity'' is incomplete without a frame and convention.
+
+Rectification places spectra on a convenient grid but correlates neighboring pixels.
+Repeated interpolation broadens the effective LSF and compounds covariance.  A good
+pipeline maps samples to the final grid once where practical, or retains native pixel
+coordinates for forward modeling.
+
+\section{Sky, thermal background, and telluric transmission}
+
+Night-sky emission is structured in wavelength and time.  Near-infrared OH lines can
+be much brighter than the target; small wavelength or LSF mismatches then leave
+positive-negative residuals.  Sky subtraction is a model of the sky observed through
+the same instrument, not a scalar offset.  Nodding, dedicated sky fibers, off-source
+slit regions, or principal-component models each encode assumptions about spatial and
+temporal variation.
+
+Atmospheric transmission multiplies the extraterrestrial spectrum.  A telluric
+standard or synthetic atmospheric model can estimate this transmission, but division
+near saturated bands amplifies noise and cannot reconstruct photons that were not
+transmitted.  Regions of very low transmission should usually be masked or fitted
+jointly with a telluric model.  The atmospheric model and science model should be
+convolved to the same LSF before comparison.
+
+Thermal emission dominates at sufficiently long wavelengths and varies with telescope
+and atmosphere temperature.  Background subtraction can be the largest term in the
+error budget for faint extended emission.  A local background region may remove real
+source emission if the object fills the field, while a remote sky exposure may not
+match the instantaneous background.
+
+\section{One-dimensional extraction}
+
+For detector row $i$ and spatial sample $j$, let $D_{ij}$ be background-subtracted
+counts, $P_{ij}$ a normalized spatial profile, and $V_{ij}$ variance.  The
+inverse-variance optimal estimator is
+\begin{equation}
+ \widehat{f}_i=\frac{\sum_j P_{ij}D_{ij}/V_{ij}}
+                       {\sum_jP_{ij}^2/V_{ij}},
+ \qquad
+ \mathrm{Var}(\widehat{f}_i)=
+ \left(\sum_j\frac{P_{ij}^2}{V_{ij}}\right)^{-1}
+ \label{eq:optimal-extraction}
+\end{equation}
+under the model assumptions \citep{Horne1986}.  Compared with an unweighted aperture,
+optimal extraction downweights noisy spatial pixels.  It can be biased if the profile
+is wrong, the object is extended, differential atmospheric refraction moves the
+centroid, or emission-line morphology differs from continuum morphology.
+
+Extraction aperture is part of the observable.  A narrow aperture can maximize
+point-source signal-to-noise but exclude diffuse line halos.  Comparing line fluxes
+from different seeing, slit widths, or instruments requires an aperture or throughput
+model.  For spatially resolved targets it is often preferable to preserve the data
+cube and define physical apertures during analysis.
+
+\section{Flux calibration and response}
+
+A spectrophotometric standard constrains the sensitivity function that converts count
+rate to physical flux density.  The response contains telescope area, slit or fiber
+throughput, optics, detector efficiency, atmospheric extinction, and sometimes an
+aperture correction.  A smooth response model should not fit away real standard-star
+absorption lines or imprint them on the target.
+
+Absolute calibration and relative line-ratio calibration are different requirements.
+Lines close in wavelength can have an accurate ratio even when absolute throughput is
+uncertain.  Widely separated lines require accurate response shape and often an
+attenuation correction.  Simultaneous photometry can rescale spectra affected by
+clouds or slit loss, but a single broadband point cannot repair wavelength-dependent
+losses.
+
+For a source with flux density $f_\lambda$ and response $R(\lambda)$, detected
+electrons scale as
+\begin{equation}
+ N_e\propto tA\int \frac{\lambda}{hc}
+ f_\lambda(\lambda)R(\lambda)\,\mathrm{d}\lambda.
+ \label{eq:photon-counting-response}
+\end{equation}
+The factor $\lambda/(hc)$ converts radiant energy to photon number.  Confusing
+energy-weighted and photon-weighted response definitions produces color terms.
+
+\section{A transparent analysis graph}
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[
+ node distance=7mm and 12mm,
+ every node/.style={font=\small},
+ box/.style={draw,rounded corners,align=center,minimum width=28mm,
+ minimum height=9mm,fill=blue!7},
+ warn/.style={draw,rounded corners,align=center,minimum width=28mm,
+ minimum height=9mm,fill=orange!14},
+ arrow/.style={->,thick}
+]
+ \node[box] (raw) {raw exposures\\and calibrations};
+ \node[box,right=of raw] (det) {detector correction\\with masks/variance};
+ \node[box,right=of det] (map) {trace and wavelength\\solution};
+ \node[box,below=of map] (bg) {sky/telluric\\forward model};
+ \node[box,left=of bg] (ext) {extraction or\\cube reconstruction};
+ \node[box,left=of ext] (flux) {flux calibration\\and LSF};
+ \node[box,below=of flux] (fit) {continuum plus\\line inference};
+ \node[box,right=of fit] (phys) {physical model\\and diagnostics};
+ \node[warn,right=of phys] (audit) {validation, provenance,\\posterior predictive checks};
+ \draw[arrow] (raw)--(det); \draw[arrow] (det)--(map);
+ \draw[arrow] (map)--(bg); \draw[arrow] (bg)--(ext);
+ \draw[arrow] (ext)--(flux); \draw[arrow] (flux)--(fit);
+ \draw[arrow] (fit)--(phys); \draw[arrow] (phys)--(audit);
+ \draw[arrow,dashed] (audit.south) to[bend left=24]
+   node[midway,below] {revise assumptions} (fit.south);
+\end{tikzpicture}
+\caption{Original reduction-to-inference graph.  Masks, variance or covariance, LSF,
+and provenance flow with the spectrum.  Validation is a feedback loop rather than a
+final cosmetic step.}
+\label{fig:analysis-graph}
+\end{figure}
+
+Figure~\ref{fig:analysis-graph} emphasizes that every product should retain auxiliary
+information: data-quality masks, propagated uncertainty, wavelength and spatial
+coordinates, spectral resolution, exposure metadata, and links to calibration
+versions.  A flux array without these is not analysis-ready.
+
+\section{Continuum modeling}
+
+Line measurements are conditional on a continuum model.  Possible components include
+stellar populations and absorption, a nonthermal power law, nebular continuum, dust
+emission, Fe complexes, scattered light, and residual response structure.  Local
+polynomials are effective over narrow intervals but can absorb broad wings.  Physical
+templates extrapolate more meaningfully but carry population and abundance mismatch.
+
+The continuum and line should be fitted jointly whenever their uncertainties are
+coupled.  Subtracting a best-fit continuum and then treating it as exact understates
+line-flux uncertainty.  For Balmer emission, underlying stellar absorption can be
+comparable to the nebular equivalent width, especially in weakly star-forming regions.
+A flexible stellar-continuum model is then not optional.
+
+Continuum placement can be stress-tested by changing windows, polynomial order, or
+template library and examining the shift in line parameters.  These shifts are a
+model-systematic term, not a reason to select whichever configuration yields the
+smallest formal error.
+
+\section{Forward line-profile fitting}
+
+A common model for a local spectral interval is
+\begin{equation}
+ m(\lambda)=C(\lambda;\boldsymbol{c})+
+ \left[\sum_{k=1}^{K}F_k\,
+ p_k(\lambda;v_k,\sigma_k)\right]*L(\lambda),
+ \label{eq:spectral-forward-model}
+\end{equation}
+sampled and integrated over the same pixels as the data.  Here each $p_k$ is normalized
+to unit area, so $F_k$ is integrated flux.  Multiple transitions may share velocity
+and dispersion; branching ratios may be fixed only when atomic physics, opacity, and
+blending justify doing so.
+
+With residual vector $\boldsymbol{r}=\boldsymbol{d}-\boldsymbol{m}$ and covariance
+$\boldsymbol{C}$, the Gaussian log likelihood is
+\begin{equation}
+ -2\ln\mathcal{L}=
+ \boldsymbol{r}^{\mathsf T}\boldsymbol{C}^{-1}\boldsymbol{r}
+ +\ln|\boldsymbol{C}|+\mathrm{constant}.
+ \label{eq:gaussian-correlated-likelihood}
+\end{equation}
+Ignoring off-diagonal covariance after resampling can underestimate uncertainties and
+make broad low-amplitude residuals appear significant.  When the full covariance is
+too costly, an empirical correction from blank-sky apertures or block bootstrap is
+better than pretending pixels are independent.
+
+For a Gaussian line in wavelength,
+\begin{equation}
+ p(\lambda)=\frac{1}{\sqrt{2\pi}\sigma_\lambda}
+ \exp\!\left[-\frac{(\lambda-\lambda_c)^2}{2\sigma_\lambda^2}\right],
+ \quad
+ \mathrm{FWHM}=2\sqrt{2\ln2}\,\sigma_\lambda.
+ \label{eq:gaussian-line-model}
+\end{equation}
+If both source and LSF are Gaussian,
+$\sigma_{\rm obs}^2=\sigma_{\rm int}^2+\sigma_{\rm inst}^2$.  Subtraction in
+quadrature is invalid for non-Gaussian LSFs, unresolved lines near the boundary
+$\sigma_{\rm int}=0$, or blends.  Forward convolution handles these cases more
+honestly.
+
+\subsection{Model complexity and components}
+
+Adding Gaussian components will almost always improve least-squares residuals.  A
+component should be retained because it is reproducible, physically interpretable,
+or required by predictive checks, not merely because an optimizer found it.  Compare
+models using held-out pixels, information criteria with their assumptions stated, or
+Bayesian evidence when priors are defensible.  Inspect whether inferred components
+persist across independent transitions and spatial bins.
+
+Parameters become non-identifiable when components are closer than the resolution or
+one has low contrast.  In that regime, the data may constrain total flux and centroid
+but not the individual widths and velocities.  Publishing a covariance or posterior
+sample makes this distinction visible.
+
+\section{Non-parametric profile measurements}
+
+Non-parametric velocities can summarize asymmetric profiles without assigning each
+feature to a Gaussian.  From the continuum-subtracted cumulative flux
+\begin{equation}
+ \mathcal{F}(v)=\frac{\int_{v_{\min}}^v F(v')\,\mathrm{d}v'}
+ {\int_{v_{\min}}^{v_{\max}}F(v')\,\mathrm{d}v'},
+ \label{eq:cumulative-line-flux}
+\end{equation}
+define $v_p$ by $\mathcal{F}(v_p)=p/100$.  Measures such as
+$W_{80}=v_{90}-v_{10}$ and $v_{50}$ are common.  They depend on the integration
+window, continuum, noise, and LSF.  Negative pixels and absorption complicate the
+cumulative distribution, so the exact algorithm must be documented.
+
+The flux-weighted centroid and second moment are
+\begin{equation}
+ \bar v=\frac{\int vF(v)\,\mathrm{d}v}{\int F(v)\,\mathrm{d}v},
+ \qquad
+ \sigma_v^2=\frac{\int(v-\bar v)^2F(v)\,\mathrm{d}v}{\int F(v)\,\mathrm{d}v}.
+ \label{eq:line-moments}
+\end{equation}
+Moments are sensitive to weak wings and window choices.  Monte Carlo propagation
+should perturb the continuum and correlated noise, not only individual flux pixels.
+
+\section{Equivalent width, flux, and luminosity}
+
+Rest-frame equivalent width separates a line from the local continuum scale.  For
+emission, some communities use positive and others negative signs; the convention
+must be explicit.  The line flux from a fitted profile is preferable to summing a
+fixed window when blends or masked pixels matter.  Direct integration remains a
+valuable model check.
+
+Uncertainty in integrated flux for weights $w_i$ is
+\begin{equation}
+ \mathrm{Var}(F)=\boldsymbol{w}^{\mathsf T}
+ \boldsymbol{C}\boldsymbol{w},
+ \label{eq:integrated-flux-covariance}
+\end{equation}
+not merely $\sum_i w_i^2\sigma_i^2$ unless the covariance is diagonal.  Luminosity
+then requires a cosmology and luminosity distance.  For gravitationally lensed
+sources, quote whether luminosity is apparent or corrected by a magnification model.
+
+\section{Detection significance and upper limits}
+
+A line ``detected at $5\sigma$'' is incomplete unless the search procedure is stated.
+If wavelength and width were scanned over many possibilities, the false-alarm rate
+is larger than the single-trial Gaussian tail.  A matched-filter amplitude for a
+known template $\boldsymbol{p}$ is
+\begin{equation}
+ \widehat{A}=\frac{\boldsymbol{p}^{\mathsf T}
+ \boldsymbol{C}^{-1}\boldsymbol{d}}
+ {\boldsymbol{p}^{\mathsf T}\boldsymbol{C}^{-1}\boldsymbol{p}},
+ \qquad
+ \sigma_A^2=\left(\boldsymbol{p}^{\mathsf T}
+ \boldsymbol{C}^{-1}\boldsymbol{p}\right)^{-1}.
+ \label{eq:matched-filter}
+\end{equation}
+The template includes the assumed intrinsic width and LSF.  Searching a template bank
+requires calibrating the maximum statistic using blank spectra, permutations, or
+simulations that reproduce the entire reduction.
+
+An upper limit is conditional on line width, centroid window, profile, and confidence
+construction.  For a nondetection of an unresolved line, a statement such as
+``$3\sigma$ flux limit for a Gaussian with FWHM
+$100\,\mathrm{km\,s^{-1}}$ at the systemic redshift'' is reusable.  A bare number is
+not.  Negative fitted fluxes should generally remain in ensemble analyses; clipping
+them to zero biases stacked and population estimates.
+
+\subsection{Worked example: width-dependent flux limit}
+
+Assume independent spectral samples of width $\delta v=20\,\mathrm{km\,s^{-1}}$
+with flux-density uncertainty $s$.  A top-hat line of width
+$\Delta v=100\,\mathrm{km\,s^{-1}}$ spans $N=5$ samples, so the integrated-noise
+scale is $s\,\delta v\sqrt{N}$.  If instead one assumes
+$\Delta v=400\,\mathrm{km\,s^{-1}}$, $N=20$ and the flux limit doubles.  Correlated
+noise changes the square-root scaling.  This is why line-width assumptions belong in
+upper-limit tables.
+
+\section{Integral-field spectroscopy}
+
+An integral-field unit samples two spatial dimensions and one spectral dimension, but
+the reconstructed cube has a three-dimensional response: a spatial point-spread
+function (PSF), spectral LSF, pixel footprint, and covariance.  Resampling detector
+pixels into spaxels correlates both neighboring wavelengths and neighboring spatial
+samples.
+
+Common spatial binning methods target a continuum signal-to-noise, yet emission-line
+signal-to-noise may follow a different morphology.  Binning based on the line being
+tested can also introduce selection bias.  A defensible strategy defines bins using
+an independent quantity, fits all spaxels hierarchically, or demonstrates through
+injection tests that adaptive selection does not fabricate gradients.
+
+Beam smearing mixes velocities within the PSF and can mimic high dispersion where a
+velocity gradient is steep.  The observed cube should be compared to a source model
+convolved spatially and spectrally.  Subtracting a scalar instrumental width from each
+spaxel cannot correct spatial beam smearing.
+
+\section{Validation by injection and repetition}
+
+End-to-end injection tests place synthetic sources into raw or minimally processed
+data, run the normal pipeline, and compare recovered parameters with truth.  They can
+measure completeness, flux bias, centroid bias near sky lines, component
+recoverability, and the effect of covariance.  Injections should span morphology,
+line width, equivalent width, and background conditions rather than a single ideal
+case.
+
+Other high-value checks include:
+\begin{itemize}
+ \item fitting independent exposures and detector subsets separately;
+ \item comparing integrated flux with direct aperture sums;
+ \item verifying fixed atomic branching ratios where opacity is negligible;
+ \item checking skylines or calibration lamps for LSF and wavelength residuals;
+ \item measuring blank apertures with the same extraction and fitting procedure;
+ \item examining posterior predictive residuals in detector and physical coordinates;
+ \item repeating measurements under plausible continuum and mask choices.
+\end{itemize}
+
+\section{A minimum reproducible line record}
+
+Every published line measurement should be accompanied, directly or in machine-readable
+metadata, by:
+\begin{enumerate}
+ \item transition identifier, rest wavelength, air/vacuum convention, and atomic-data
+ source;
+ \item observed frame and velocity convention;
+ \item aperture, PSF, slit losses, and extraction method;
+ \item continuum model, fit window, masks, and blend constraints;
+ \item LSF model and spectral sampling;
+ \item flux or equivalent width with statistical and systematic uncertainties;
+ \item covariance or a documented approximation to it;
+ \item attenuation, lensing, and aperture corrections;
+ \item nondetection assumptions and search trials;
+ \item software version, configuration, calibration version, and provenance links.
+\end{enumerate}
+This record turns a table of numbers into scientific evidence that another researcher
+can audit, combine, or reinterpret.

@@ -1,0 +1,50 @@
+\documentclass[11pt,oneside,openany]{book}
+\input{preamble}
+
+\title{\textbf{Line Atlas}\\[0.5em]\Large A Field Guide to Astrophysical Spectroscopy}
+\author{Tanmay Singh}
+\date{First edition --- \today}
+
+\begin{document}
+\hypersetup{pageanchor=false}
+\input{frontmatter/titlepage}
+\hypersetup{pageanchor=true}
+\frontmatter
+\input{frontmatter/preface}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+\part{Reading Light}
+\include{chapters/01-foundations}
+\include{chapters/02-radiative-transfer}
+\include{chapters/03-measurement}
+
+\part{Gas in and around Galaxies}
+\include{chapters/04-ionized-nebulae}
+\include{chapters/05-neutral-molecular}
+\include{chapters/06-star-formation-feedback}
+\include{chapters/06b-feedback-outflows}
+\include{chapters/07-circumgalactic-medium}
+\include{chapters/08-intergalactic-medium}
+
+\part{Energetic and Multiwavelength Spectroscopy}
+\include{chapters/09-agn}
+\include{chapters/10-multiwavelength}
+\include{chapters/11-observing-planning}
+\include{chapters/12-inference-workflows}
+
+\part{Reference Atlas}
+\include{chapters/13-line-atlas}
+
+\appendix
+\include{appendices/constants}
+\include{appendices/diagnostic-recipes}
+\include{appendices/glossary}
+
+\backmatter
+\bibliographystyle{plainnat}
+\bibliography{references,references-manuscript,references-cosmic,references-inference}
+\printindex
+\end{document}

@@ -1,0 +1,20 @@
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[x=1.2cm,y=1.05cm,>=Latex]
+  \foreach \y/\lab in {0/$E_1$,2/$E_2$,4/$E_3$}{
+    \draw[AtlasNavy,line width=1pt] (0,\y)--(4.2,\y) node[right]{\lab};
+  }
+  \draw[->,AtlasCyan,line width=1.4pt] (0.9,0.08)--(0.9,1.92)
+    node[midway,left,align=right,font=\small]{absorption\\$B_{12}J_\nu$};
+  \draw[->,AtlasCoral,line width=1.4pt] (2.25,1.92)--(2.25,0.08)
+    node[midway,left,align=right,font=\small]{spontaneous\\$A_{21}$};
+  \draw[->,AtlasAmber,line width=1.4pt] (3.6,1.92)--(3.6,0.08)
+    node[midway,right,align=left,font=\small]{stimulated\\$B_{21}J_\nu$};
+  \draw[->,AtlasCyan,dashed,line width=1.2pt] (0.9,2.08)--(0.9,3.92)
+    node[midway,left,align=right,font=\small]{collisional\\excitation $C_{23}$};
+  \node[anchor=west,text width=4.8cm,align=left] at (5.0,3.4) {The same observed transition can be populated by radiative or collisional routes.};
+  \node[anchor=west,text width=4.8cm,align=left] at (5.0,1.2) {Statistical equilibrium balances every route into and out of each level; a line is not assigned a unique formation condition by wavelength alone.};
+\end{tikzpicture}
+\caption{The principal bound--bound population and depopulation routes. The Einstein coefficients describe radiative transitions; collisional rates depend on collider density and the velocity-averaged cross section.}
+\label{fig:line-processes}
+\end{figure}

@@ -1,0 +1,236 @@
+\chapter{X-ray, Far-Infrared, Submillimeter, and Radio Diagnostics}
+\label{chap:multiwavelength}
+
+\section{One gas cycle, several observational weightings}
+
+No band inventories every phase of cosmic gas. Optical and ultraviolet
+spectra are highly sensitive to $10^4$ K ionized gas and to absorption through
+low-density material, but dust, cold molecular reservoirs, and hot plasma can
+remain inconspicuous. X-ray lines expose highly ionized metals; far-infrared
+fine-structure lines carry cooling from neutral and weakly ionized gas;
+millimeter rotational lines make cold molecular gas observable; and centimeter
+data trace atomic hydrogen, free--free emission, synchrotron radiation, and
+magnetized plasma. These are complementary density, temperature, abundance,
+opacity, and geometry weightings, not interchangeable mass estimators.
+
+The common discipline is forward modeling. A source spectrum is altered by
+radiative transfer and cosmological redshift, sampled through a point-spread
+function or synthesized beam, and redistributed among detector channels.
+Continuum, aperture, response, and background therefore belong in the
+definition of every reported line measurement.
+
+\section{Thermal X-ray plasma}
+
+For a low-density, optically thin collisionally excited line,
+\begin{equation}
+ L_{ul}=\int n_{\rm e}n_{\rm H} A_X f_{X^i}(T,n_{\rm e}t)
+ \epsilon_{ul}(T,n_{\rm e})\,{\rm d}V ,
+ \label{eq:xray-line}
+\end{equation}
+where $A_X$ is elemental abundance, $f_{X^i}$ the ionic fraction, and
+$\epsilon_{ul}$ the emissivity coefficient. The $n_{\rm e}n_{\rm H}$
+weighting favors dense structure, so a uniform-density conversion from
+luminosity to mass is biased when gas is clumpy.
+
+In collisional ionization equilibrium (CIE), ionization balances
+recombination and ion fractions depend mainly on temperature. A recently
+shocked plasma may be underionized; rapidly cooling or expanding gas may be
+overionized and recombining. Nonequilibrium calculations introduce an
+ionization age such as $n_{\rm e}t$. Photoionized plasma instead responds to
+an external spectral energy distribution and ionization parameter. One ion
+can occur in more than one regime, so a temperature assigned from a line name
+alone is model dependent \citep{Draine2011,SutherlandDopita1993,AtomDB2025}.
+
+H-like Ly$\alpha$ lines, He-like triplets, the Fe L complex, and Fe K lines
+provide complementary constraints. For a He-like triplet,
+\begin{equation}
+ G=\frac{f+i}{r},\qquad R=\frac{f}{i},
+\end{equation}
+where $r$, $i$, and $f$ denote resonance, intercombination, and forbidden
+components. These ratios respond to excitation mechanism, temperature,
+density, and ultraviolet pumping, but blends and radiative transfer must be
+included.
+
+A multiphase source can be represented by a differential emission measure,
+\begin{equation}
+ L_E=\int \Lambda_E(T,Z)
+ \frac{{\rm d}EM}{{\rm d}\log T}\,{\rm d}\log T,\qquad
+ EM=\int n_{\rm e}n_{\rm H}\,{\rm d}V .
+\end{equation}
+Fitting a one-temperature spectrum to such gas can bias both continuum and
+abundance. The adopted solar abundance scale must be named
+\citep{Asplund2021}. Likewise, the cooling relation
+$\mathcal{L}=n_{\rm e}n_{\rm H}\Lambda(T,Z)$ hides dependencies on ionization
+state, abundance pattern, and radiation field.
+
+\subsection{Absorption, fluorescence, and the detector response}
+
+Photoelectric absorption may be written schematically
+\begin{equation}
+ F_E^{\rm obs}=F_E^{\rm int}
+ \exp[-N_{\rm H}\sigma_{\rm eff}(E,Z,\xi)].
+\end{equation}
+The fitted equivalent hydrogen column inherits assumptions about abundances,
+cross-sections, ionization, and covering. Fe K$\alpha$ near $6.4$ keV can
+arise in distant obscuring matter or disk reflection. Near a black hole,
+Doppler shifts, gravitational redshift, and light bending broaden the full
+reflection spectrum; an isolated Gaussian is a detection model, not a
+complete physical interpretation \citep{GeorgeFabian1991,Reynolds2014}.
+
+Counts predicted in channel $j$ are
+\begin{equation}
+ \mu_j=t_{\rm exp}\int R_j(E)A_{\rm eff}(E)S(E)\,{\rm d}E+B_j ,
+\end{equation}
+so photon models must be folded through redistribution and effective-area
+responses. Sparse counts call for Poisson likelihoods rather than forced
+Gaussian errors. A free search in line energy also requires a trials
+correction. Weak O~VII or O~VIII absorption claims in the WHIM are especially
+sensitive to continuum choice, wavelength calibration, fixed-pattern
+residuals, Galactic foregrounds, and the full searched redshift path
+\citep{Bregman2007,Nicastro2018}.
+
+Microcalorimeters resolve velocity information without dispersion. XRISM
+Resolve provides few-eV-class spectroscopy over much of its operating band
+\citep{XRISMPOG2026}. For approximately Gaussian components,
+\begin{equation}
+ \sigma_v^2=\frac{k_{\rm B}T}{m_{\rm ion}}+
+ \sigma_{\rm turb}^2+\sigma_{\rm bulk,unresolved}^2 .
+\end{equation}
+Ions of different mass can help separate thermal and nonthermal widths only
+if they trace the same volume.
+
+\section{Far-infrared fine-structure cooling}
+
+Low-lying fine-structure transitions can be excited in gas too cool for
+optical forbidden lines. Central examples are [C~II] $158\,\mu{\rm m}$,
+[O~I] $63$ and $145\,\mu{\rm m}$, [N~II] $122$ and $205\,\mu{\rm m}$,
+[O~III] $52$ and $88\,\mu{\rm m}$, and [C~I] $370$ and $609\,\mu{\rm m}$.
+For an optically thin two-level approximation,
+\begin{equation}
+ n_{\rm crit}=\frac{A_{ul}}{\sum_c q_{ul}^{(c)}}.
+\end{equation}
+A critical density is incomplete unless collider and temperature are stated.
+Electrons, H, and H$_2$ have different rate coefficients, and radiative
+trapping changes the effective excitation requirement.
+
+[C~II] is not phase unique: C$^+$ occurs in ionized gas, diffuse neutral gas,
+and photodissociation-region (PDR) surfaces. [N~II] helps estimate the ionized
+contribution, while [O~I] weights warmer, denser neutral material but may be
+optically thick or self-absorbed. [O~III] selects harder radiation. A PDR-grid
+solution is conditional on geometry, abundance, column, filling factor, and
+the partition of [C~II] among phases \citep{TielensHollenbach1985,
+HollenbachTielens1999}.
+
+The observed decline of [C~II]/far-infrared luminosity in many compact
+luminous systems is called the [C~II] deficit. High ionization parameter,
+grain charging, dust-bounded regions, saturation of the upper level, opacity,
+and an AGN-heated continuum may all contribute. The name describes a ratio;
+it does not select one cause.
+
+\section{Molecular rotational lines}
+
+Cold H$_2$ has no permanent dipole moment, so CO is widely used as a proxy.
+The velocity-integrated CO flux gives the brightness-temperature luminosity
+\begin{equation}
+ L'_{\rm CO}=3.25\times10^7
+ (S_{\rm CO}\Delta v)\nu_{\rm obs}^{-2}D_{\rm L}^{2}(1+z)^{-3}
+ \quad {\rm K\,km\,s^{-1}\,pc^2},
+\end{equation}
+for flux in Jy km s$^{-1}$, frequency in GHz, and distance in Mpc. Molecular
+mass is then
+\begin{equation}
+ M_{\rm mol}=\alpha_{\rm CO}L'_{\rm CO(1-0)}.
+\end{equation}
+The factor $\alpha_{\rm CO}$ depends on metallicity, surface density,
+temperature, dynamics, cloud structure, and the helium convention; it is a
+physical prior rather than a unit conversion \citep{Bolatto2013}.
+
+A high-$J$ line additionally requires an excitation ratio
+$r_{J1}=L'_{\rm CO[J-(J-1)]}/L'_{\rm CO(1-0)}$. A CO spectral-line energy
+distribution constrains a distribution of density and temperature and rarely
+has a unique one-component interpretation. Dense-gas tracers such as HCN,
+HCO$^+$, and CS are also affected by opacity, trapping, chemistry, and
+infrared pumping \citep{CarilliWalter2013}.
+
+At high redshift, $T_{\rm CMB}=2.725(1+z)$ K both excites low levels and
+provides a background. Ignoring it can hide cold gas whose excitation
+temperature lies only slightly above the background. Main-isotope CO is
+often optically thick; isotopologues constrain opacity but introduce isotope
+chemistry and selective photodissociation.
+
+\section{H~I at 21 cm}
+
+The hyperfine line has rest frequency $1420.40575177$ MHz. A uniform layer
+obeys
+\begin{equation}
+ T_{\rm B}(v)=T_{\rm s}(1-e^{-\tau})+T_{\rm bg}e^{-\tau}.
+\end{equation}
+For optically thin foreground-subtracted emission,
+\begin{equation}
+ N_{\rm HI}=1.823\times10^{18}\int T_{\rm B}(v)\,{\rm d}v
+ \quad {\rm cm^{-2}},
+\end{equation}
+with $T_{\rm B}$ in K and velocity in km s$^{-1}$. In absorption,
+\begin{equation}
+ N_{\rm HI}=1.823\times10^{18}\frac{T_{\rm s}}{f_{\rm c}}
+ \int\tau_{\rm obs}(v)\,{\rm d}v .
+\end{equation}
+Thus absorption alone constrains a combination of spin temperature and
+covering factor \citep{Chengalur2013}. For unresolved optically thin emission,
+\begin{equation}
+ \frac{M_{\rm HI}}{M_\odot}=2.356\times10^5
+ \frac{D_{\rm L}^2}{1+z}
+ \left(\frac{\int S_\nu{\rm d}v}{\mathrm{Jy\,km\,s^{-1}}}\right),
+\end{equation}
+with $D_{\rm L}$ in Mpc. Self-opacity, beam dilution, stray radiation, and
+resolved-out diffuse structure violate simple conversions.
+
+\section{Radio continuum, magnetic fields, and interferometers}
+
+Optically thin free--free radiation is tied to the ionizing-photon rate,
+whereas synchrotron emission depends on cosmic-ray electrons, magnetic
+fields, losses, and transport. Their spectral decomposition is approximate
+when regions are mixed or when low-frequency absorption and curvature matter
+\citep{CondonRansom2016,KennicuttEvans2012}.
+
+For a simple foreground screen,
+\begin{equation}
+ \chi(\lambda)=\chi_0+{\rm RM}\lambda^2,\qquad
+ {\rm RM}=0.812\int n_{\rm e}B_\parallel\,{\rm d}l
+ \quad {\rm rad\,m^{-2}},
+\end{equation}
+with $n_{\rm e}$ in cm$^{-3}$, $B_\parallel$ in $\mu$G, and path in pc.
+Internal rotation, multiple components, and beam depolarization require
+Faraday-depth modeling rather than one slope.
+
+An interferometer samples Fourier components:
+\begin{equation}
+ V(u,v)=\int A(l,m)I(l,m)e^{-2\pi i(ul+vm)}\,{\rm d}l\,{\rm d}m .
+\end{equation}
+The beam, weighting, flagging, and deconvolution are part of the measurement.
+Long baselines sharpen resolution but do not ensure surface-brightness
+sensitivity; absent short spacings suppress large-scale flux. A reproducible
+line cube records channel response, synthesized beam, primary-beam correction,
+continuum subtraction, mask construction, and correlated noise.
+
+\section{A cross-band audit}
+
+The strongest combinations break different degeneracies: H$\alpha$ plus
+free--free emission tests extinction; [N~II] partitions [C~II]; CO ladders
+constrain excitation while dust supplies an independent mass prior; and H~I
+emission plus absorption constrains spin temperature. Comparisons require
+matched aperture, beam, velocity interval, and calibration convention.
+
+Always preserve the inference chain
+\[
+ \begin{gathered}
+ \hbox{counts or visibilities}\rightarrow\hbox{line flux and profile}
+ \rightarrow\hbox{excitation and opacity}\\
+ \rightarrow\hbox{column or mass}\rightarrow\hbox{physical claim}.
+ \end{gathered}
+\]
+A bright line need not trace the dominant mass, a nondetection is not a
+phase-independent zero, critical density is not a hard boundary, and a
+higher-resolution interferometric image may recover less total flux. Every
+arrow in the chain adds assumptions; an atlas should display them beside the
+diagnostic.

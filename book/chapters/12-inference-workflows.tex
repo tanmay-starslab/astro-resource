@@ -1,0 +1,401 @@
+\chapter[Inference and Reproducible Workflows]{Inference, Modelling, and Reproducible Line Workflows}
+\label{ch:inference}
+
+A measured line flux is the endpoint of a reduction model and the input to a
+physical model.  Treating it as a context-free number loses calibration
+covariance, nondetections, selection, response information, and the assumptions
+used to separate line from continuum.  A reproducible workflow instead carries
+a generative model from latent source spectrum to detector samples, exposes the
+approximation used at each compression step, and stores enough provenance to
+repeat the result.
+
+\section{Begin with the data-generating process}
+
+Let $\boldsymbol{s}(\boldsymbol{\theta})$ be a rest-frame source spectrum for
+physical parameters $\boldsymbol{\theta}$, $A$ an aperture or spatial mixing
+operator, $R$ the spectral response, and $B\boldsymbol{\phi}$ a background model.
+A general expectation in detector space is
+\begin{equation}
+ \boldsymbol{\mu}(\boldsymbol{\theta},\boldsymbol{\phi})
+ =R\,A\,\boldsymbol{s}(\boldsymbol{\theta})+B\boldsymbol{\phi}.
+ \label{eq:forward-model}
+\end{equation}
+For photon counts $n_i$, the elementary likelihood is
+\begin{equation}
+ \ln \mathcal{L}_{\rm P}=\sum_i
+ \left[n_i\ln\mu_i-\mu_i-\ln\Gamma(n_i+1)\right].
+ \label{eq:poisson-likelihood}
+\end{equation}
+Background counts measured in another region should be modeled jointly with
+their area and exposure scaling, not subtracted and assigned an ad hoc Gaussian
+error.  This is the logic behind count-space statistics used in X-ray
+spectroscopy \citep{Cash1979,Arnaud1996}.
+
+For approximately Gaussian extracted spectra $\boldsymbol{y}$ with covariance
+$C$, the corresponding log likelihood is
+\begin{equation}
+ \ln\mathcal{L}_{\rm G}=-\frac{1}{2}
+ \left[(\boldsymbol{y}-\boldsymbol{m})^{\mathsf T}C^{-1}
+ (\boldsymbol{y}-\boldsymbol{m})+\ln|C|+N\ln(2\pi)\right].
+ \label{eq:gaussian-covariance}
+\end{equation}
+Resampling, sky subtraction, continuum fitting, common calibration, PSF
+matching, and shared denominators create covariance.  Ignoring off-diagonal
+terms can narrow intervals and exaggerate the information content of a line
+profile.  If full $C$ is too large, preserve a sparse covariance, a correlation
+kernel, or the linear operator that generated the spectrum.  Merely inflating
+diagonal errors does not reproduce parameter-dependent correlations.
+
+Equation~\ref{eq:forward-model} is also a reminder not to ``deconvolve first''
+unless deconvolution is itself part of the likelihood.  A model profile should
+normally be convolved with the wavelength-dependent line-spread function and
+integrated over detector pixels.  For an integral-field cube, the spatial PSF,
+slice geometry, differential atmospheric refraction, and source velocity field
+can couple spatial and spectral structure.  Beam smearing can then mimic a
+broad component or flatten a velocity gradient.  Forward-modeling the native
+samples avoids asking a noisy inverse operation to create information.
+
+\subsection{Fit the continuum and line together when they interact}
+
+A local line model might include a polynomial or physically motivated continuum,
+one or more response-convolved profiles, and nuisance terms for sky residuals.
+Continuum uncertainty is especially important for weak equivalent widths and
+broad lines.  Estimating a continuum, subtracting it, and then fitting the line
+as if the continuum were known discards covariance.  Simultaneous fitting or
+posterior propagation preserves it.
+
+Line parameters need constraints that represent physics without manufacturing
+detections.  A doublet may share velocity and width and have a ratio bounded by
+atomic physics; blended species need not share kinematics.  Positive-only flux
+priors change the null distribution at zero.  Consequently, the improvement in
+$\chi^2$ from adding a non-negative line does not necessarily follow the usual
+asymptotic likelihood-ratio law.  Calibrate searches with posterior predictive
+checks or simulations that reproduce the continuum fit and look-elsewhere scan
+\citep{Protassov2002}.
+
+\subsection{Identifiability, priors, and parameterization}
+
+A parameter is identifiable only to the extent that distinct values predict
+distinguishable data after nuisance parameters and response are considered.
+For an optically thin single line, column density, emitting area, abundance,
+and ion fraction may appear only as a product.  No sampler can separate them
+without additional information.  Report identifiable combinations, add
+well-motivated complementary data, or acknowledge prior dominance.
+
+Priors should be specified in the parameterization where the scientific belief
+is intended.  Uniform priors in flux, log flux, equivalent width, and line
+amplitude divided by noise are not equivalent.  A bounded ``uninformative''
+prior can set an implicit physical scale through its endpoints.  Transforming
+from positive width $\sigma$ to $\log\sigma$ changes the density by a Jacobian.
+Prior predictive simulation - drawing parameters from the prior and generating
+synthetic spectra - is an efficient way to expose absurd widths, fluxes,
+doublet ratios, or continua before seeing the data.
+
+Parameterization also affects computation.  Centered hierarchical models can
+mix poorly when individual lines are weak, whereas a non-centered form can be
+more stable.  Highly covariant amplitude and width may benefit from parameters
+closer to integrated flux and log width.  Convergence diagnostics should be
+reported for the actual posterior draws: multiple chains, effective sample
+size, rank-based diagnostics, trace inspection, and sensitivity to initialization.
+A maximum-likelihood covariance matrix is a local curvature approximation and
+can miss boundaries, tails, multiple modes, and discrete alternatives.
+
+\subsection{Model comparison without a significance shortcut}
+
+Deciding between one and two kinematic components is a scientific model-
+comparison problem, not simply a request for the model with lower residual sum
+of squares.  Information criteria approximate predictive tradeoffs under
+specific regularity assumptions; marginal likelihoods depend on the full prior
+volume; cross-validation evaluates predictive performance for a declared unit
+of held-out data.  Mixture components and lines at a boundary violate common
+asymptotic assumptions.  The preferred tool therefore depends on the claim.
+
+When the question is whether a broad outflow component is required, simulate
+spectra from the best adequate narrow-component model, repeat the same search
+over centroid and width, and compare the chosen detection statistic with the
+simulated distribution.  When the question is prediction for new spectra,
+leave out independent objects or exposures rather than correlated pixels.
+When physical alternatives are all approximations, present model-averaged or
+model-stratified results instead of converting a small score difference into
+certainty about ontology.
+
+\begin{tcolorbox}[title={Do not confuse a fit with a measurement},colback=red!3,colframe=red!45!black]
+A converged optimizer establishes neither identifiability nor calibration.
+Inspect alternative starting points, parameter correlations, residual structure,
+prior sensitivity, and simulation-based recovery.  Quote the observable and its
+likelihood or posterior, not only the best-fit parameter vector.
+\end{tcolorbox}
+
+\section{Ratios, calibration terms, and uncertainty budgets}
+
+For a ratio $r=F_1/F_2$, first-order propagation gives
+\begin{equation}
+ \mathrm{Var}(\ln r)=
+ \frac{\mathrm{Var}(F_1)}{F_1^2}+
+ \frac{\mathrm{Var}(F_2)}{F_2^2}-
+ 2\frac{\mathrm{Cov}(F_1,F_2)}{F_1F_2}.
+ \label{eq:ratio-covariance}
+\end{equation}
+The covariance term is often beneficial when both lines share flux calibration,
+aperture correction, or continuum placement.  It can also be negative after
+deblending.  Treating catalogue columns as independent can therefore either
+overstate or understate ratio uncertainty.
+
+A useful hierarchical calibration model for observation $j$ is
+\begin{equation}
+ F_{ij}^{\rm obs}=g_j\,a_{ij}\,F_i^{\rm true}+\epsilon_{ij},
+ \qquad \ln g_j\sim\mathcal{N}(0,\sigma_{g,j}^2),
+ \label{eq:calibration-nuisance}
+\end{equation}
+where $g_j$ is a shared multiplicative calibration and $a_{ij}$ represents
+line-dependent attenuation or aperture effects.  Marginalizing these nuisance
+terms propagates correlations naturally.  Keep statistical repeatability,
+absolute calibration, model discrepancy, atomic data, distance, lensing,
+attenuation, and aperture terms separate in the budget; they average down in
+different ways.
+
+Avoid constructing a diagnostic analysis entirely from logarithmic ratios when
+one or more denominator lines are weak.  The ratio likelihood becomes skewed
+and heavy-tailed, and a catalogue cut on both numerator and denominator creates
+a complicated truncated sample.  A safer population model predicts the vector
+of line fluxes, applies attenuation and calibration, and compares that vector
+with all measured flux estimators and their covariance.  Ratios can still be
+plotted as summaries.  The model, however, retains the information in the
+overall normalization and admits negative noise realizations without undefined
+logarithms.
+
+\begin{table}[htbp]
+\centering
+\caption{A minimum uncertainty ledger for a derived line quantity.}
+\label{tab:uncertainty-ledger}
+\begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.29\textwidth}X@{}}
+\toprule
+Class & Example & Recommended representation \\
+\midrule
+Counting/noise & source, sky, read noise & detector-space likelihood or covariance \\
+Reduction & flat field, sky basis, extraction & nuisance parameters or reduction ensembles \\
+Calibration & throughput, beam, standard star & shared multiplicative/additive terms \\
+Model & continuum, profiles, phase mixture & competing models and posterior predictive checks \\
+Physics data & collision strengths, abundances & versioned grid and sensitivity reruns \\
+Population & distance, lensing, selection & hierarchical latent variables and selection function \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Nondetections and censored information}
+
+An upper limit is not a flux measurement with value zero.  If an analysis
+retains a Gaussian estimator $\hat F$ and uncertainty $\sigma_F$, use its full
+likelihood even when $\hat F/\sigma_F$ fails a reporting threshold.  If only the
+event $\hat F<F_{\rm lim}$ is available, its likelihood under a model predicting
+$F(\boldsymbol{\theta})$ is
+\begin{equation}
+ p(\hat F<F_{\rm lim}\mid\boldsymbol{\theta})=
+ \Phi\!\left(\frac{F_{\rm lim}-F(\boldsymbol{\theta})}{\sigma_F}\right),
+ \label{eq:censored-gaussian}
+\end{equation}
+where $\Phi$ is the normal cumulative distribution.  This censored likelihood
+is less informative than the original estimator.  Publishing signed fluxes and
+uncertainties, alongside quality flags, generally supports better population
+inference than publishing limits alone.
+
+Classical survival-analysis methods are valuable when their censoring assumptions
+hold \citep{FeigelsonNelson1985}.  Astronomical censoring is often informative:
+the limit varies with wavelength, background, source size, and target selection,
+all of which can correlate with the physical quantity.  Then the measurement
+and selection process must be modeled jointly.  Stacking is not a universal
+escape.  A mean stack estimates a weighted population functional set by the
+normalization, weights, and missing data; it does not recover the median object
+or the ratio of mean latent luminosities without assumptions.
+
+\section{Selection effects and population likelihoods}
+
+Suppose objects have latent parameters $\boldsymbol{\theta}$ drawn from
+$p(\boldsymbol{\theta}\mid\boldsymbol{\Lambda})$ and enter the sample with
+probability $P_{\rm det}(\boldsymbol{\theta})$.  Conditioning on a detected
+sample introduces the efficiency
+\begin{equation}
+ \alpha(\boldsymbol{\Lambda})=
+ \int P_{\rm det}(\boldsymbol{\theta})
+ p(\boldsymbol{\theta}\mid\boldsymbol{\Lambda})\,d\boldsymbol{\theta}.
+ \label{eq:selection-efficiency}
+\end{equation}
+For fixed detected sample size, a schematic population likelihood includes one
+factor of $\alpha^{-1}$ per object,
+\begin{equation}
+ \mathcal{L}(\boldsymbol{\Lambda})\propto
+ \prod_{k=1}^{N}\frac{
+ \int p(d_k\mid\boldsymbol{\theta}_k)
+ p(\boldsymbol{\theta}_k\mid\boldsymbol{\Lambda})\,d\boldsymbol{\theta}_k}
+ {\alpha(\boldsymbol{\Lambda})}.
+ \label{eq:population-selection}
+\end{equation}
+The exact form changes if the total event rate is modeled, but the principle is
+stable: selection normalizes the population model \citep{MandelFarrGair2019}.
+
+Injection and recovery is the most direct way to estimate a complicated
+$P_{\rm det}$.  Inject sources spanning flux, width, wavelength, continuum,
+size, and environment into realistic data; run the exact detection and quality
+pipeline; and model recovery probability in that multi-dimensional space.
+Injecting only isolated Gaussian lines into white noise misses sky residuals,
+blends, continuum errors, and human vetting.  Avoid applying a one-dimensional
+``90 percent flux completeness'' curve to a population whose width or size
+distribution evolves.
+
+\section{Physical models: useful approximations and model discrepancy}
+
+\subsection{Photoionized nebulae and slabs}
+
+Photoionization codes solve ionization, thermal balance, and radiative transfer
+through a specified geometry and incident spectrum.  Cloudy is widely used for
+nebulae, AGN, and diffuse gas \citep{Ferland2017}.  A grid must record code
+version, atomic-data set, incident spectral energy distribution, gas density or
+pressure law, abundances and depletion, dust prescription, stopping criterion,
+geometry, covering factor, and whether emission is integrated or emergent from
+a specified face.  ``Metallicity'' alone is not a complete model coordinate.
+
+Interpolation across a grid should be tested against direct runs, especially
+near ionization fronts or thermal instabilities.  Grid priors are not innocuous:
+a uniform prior in $U$ differs from one uniform in $\log U$, and a rectangular
+grid can assign weight to chemically inconsistent abundance combinations.
+Model discrepancy should be included when observed line ratios cannot be matched
+within measurement errors; otherwise the posterior may become extremely precise
+about the least-wrong point in an inadequate model.
+
+Large physical grids are often replaced by interpolators or machine-learning
+emulators.  Validate the emulator on withheld grid points using errors in the
+space actually fit - often log luminosity or line ratio - and propagate emulator
+uncertainty.  Dense validation near sharp ionization fronts and grid edges is
+more valuable than a small global root-mean-square error.  Never extrapolate
+silently: mark proposals outside the training hull, expand the physical grid,
+or assign a discrepancy wide enough to express ignorance.  Archive the training
+grid, preprocessing, emulator weights, and code version alongside posterior
+products.
+
+\subsection{Collisionally ionized and nonequilibrium plasma}
+
+Hot-plasma emissivities depend on electron temperature, ion fractions,
+abundances, and atomic rates.  Databases such as CHIANTI provide versioned
+atomic data and software for optically thin plasma calculations
+\citep{Dere1997,DelZanna2021}.  Collisional ionization equilibrium assumes that
+ionization and recombination have had time to balance at one temperature.
+Cooling flows, shocks, interfaces, and rapidly heated gas can be in
+nonequilibrium; ion populations then remember thermal history.  Resonant
+scattering, charge exchange, non-Maxwellian electrons, or optical depth can
+break an otherwise plausible one-temperature fit.
+
+The observed X-ray count model must be folded through the response and include
+foreground absorption.  A multi-temperature plasma fit by one temperature can
+bias abundances.  Comparing multiple plasma codes or atomic-data releases is a
+practical model-systematics test, not an optional software preference.
+
+\subsection{From line emission to mass or rate}
+
+Every conversion should be written as a conditional model.  Examples include
+$M_{\rm mol}=\alpha_{\rm CO}L'_{\rm CO}$, an ionized-gas mass proportional to
+$L_{\rm recomb}/(n_e\alpha_{\rm eff})$, and a star-formation calibration based
+on ionizing-photon production.  The conversion coefficient depends on physical
+state, composition, stellar population, IMF, leakage, and geometry.  Report the
+direct observable alongside the derived value so later work can replace the
+calibration without reverse engineering it \citep{KennicuttEvans2012}.
+
+\section{Validation: can the inference recover known truth?}
+
+Posterior predictive checks draw replicated data from the fitted model and
+compare features relevant to the claim: residual autocorrelation, line wings,
+doublet consistency, nondetection fraction, or ratio distribution.  A good
+global $\chi^2$ can coexist with a systematic failure in the diagnostic of
+interest.  Simulation-based calibration tests whether Bayesian credible ranks
+are uniform when parameters and data are drawn from the stated prior and model.
+Coverage experiments test frequentist intervals across controlled truth.
+These checks address computation and calibration under the assumed model; they
+do not prove that the assumed model describes nature.  Stress tests should
+therefore inject departures that are scientifically plausible: non-Gaussian
+line wings, spatially varying ratios, mismatched continua, correlated sky
+residuals, or a contaminating transition at an uncertain redshift.
+
+Blind analysis can reduce experimenter-induced tuning for delicate detections.
+Negative controls, off-source apertures, inverted spectra, and line-free
+wavelengths reveal false positives.  Split-data consistency is useful only when
+the split isolates plausible failure modes, such as detector, epoch,
+polarization, nod position, or array configuration.  Repeatedly choosing the
+split that looks best creates another trials factor.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,node distance=7mm and 9mm,
+stage/.style={draw,rounded corners,fill=blue!4,align=center,minimum width=2.65cm,minimum height=8mm},
+artifact/.style={draw,fill=green!5,align=center,minimum width=2.65cm,minimum height=8mm},
+arr/.style={->,thick}]
+\node[stage] (raw) {raw data +\\calibration context};
+\node[stage,right=of raw] (reduce) {versioned\\reduction};
+\node[artifact,right=of reduce] (spec) {spectrum/cube +\\mask + covariance};
+\node[stage,below=of spec] (fit) {forward model +\\likelihood};
+\node[artifact,left=of fit] (post) {posterior/likelihood +\\diagnostics};
+\node[stage,left=of post] (pop) {selection-aware\\population model};
+\node[artifact,below=of pop] (release) {tables + provenance +\\reproduction recipe};
+\node[stage,below=of fit] (validate) {injection, recovery,\\predictive checks};
+\draw[arr] (raw)--(reduce); \draw[arr] (reduce)--(spec); \draw[arr] (spec)--(fit);
+\draw[arr] (fit)--(post); \draw[arr] (post)--(pop); \draw[arr] (pop)--(release);
+\draw[arr] (fit)--(validate); \draw[arr] (validate)--(fit);
+\draw[arr,dashed] (validate)--(release);
+\end{tikzpicture}
+\caption{A reproducible line-analysis graph.  Green artifacts are preserved
+interfaces; blue stages are deterministic or explicitly stochastic workflows.
+Validation is part of the inference loop, not a decorative final plot.}
+\label{fig:reproducible-dag}
+\end{figure}
+
+\section{Provenance and machine-readable products}
+
+Reproducibility requires more than a code repository.  Preserve immutable raw
+identifiers and checksums; calibration reference names; software and dependency
+versions; configuration files; random seeds; environment or container digest;
+commands; and links between inputs and outputs.  Use stable object and line IDs,
+machine-readable units, explicit missing-value semantics, and documented
+coordinate and time frames.  FITS remains central in astronomy, while ECSV,
+ASDF, HDF5, Parquet, and domain-specific models can preserve richer structure;
+the correct choice is the one accompanied by a schema and validation.
+The FAIR principles - findable, accessible, interoperable, and reusable - are a
+helpful publication target, but ``accessible'' need not mean unrestricted when
+privacy, proprietary periods, or facility policy apply \citep{Wilkinson2016}.
+Metadata and a documented route to authorized access can remain public while
+controlled data stay protected.
+
+A line catalogue should minimally carry rest wavelength or frequency with source
+and medium, transition identifier, observed centroid and frame, integrated flux,
+signed estimator and uncertainty, width and its definition, continuum and
+equivalent width, aperture, response or resolution, covariance reference,
+detection procedure, quality mask, and provenance pointer.  Store posterior
+samples or a reusable likelihood for nonlinear or multimodal results when
+practical.  A symmetric error bar is not an adequate serialization of a bounded,
+skewed, or mixture posterior.
+
+Continuous integration should rebuild representative reductions or synthetic
+tests, validate schemas and units, verify bibliography and documentation links,
+and compare scientific outputs within justified tolerances.  Exact bitwise
+reproduction is desirable for deterministic stages but can be brittle across
+hardware; for stochastic inference, test seeds, distributional summaries, and
+coverage.  Tag the release used for a publication and archive it with a durable
+identifier.  A notebook can communicate exploration, but a parameterized,
+non-interactive pipeline should produce the claimed tables and figures from
+declared inputs.
+
+A robust pipeline separates pure transformations from side effects.  A command
+should accept declared inputs and configuration, write outputs to a new versioned
+location, and emit a manifest containing checksums and environment identity.
+Workflow engines can execute a directed acyclic graph, but the graph alone is
+not provenance if calibration files are downloaded by mutable URL or notebooks
+depend on hidden state.  Cache keys should include scientific configuration and
+reference-data versions, not only source-code commits.  Manual quality decisions
+belong in append-only, machine-readable annotations with reviewer, timestamp,
+reason, and supersession history.
+
+\section{A compact analysis contract}
+
+Before publication, write a one-page contract stating: the primary observable;
+the detector-space likelihood; response and background treatment; priors and
+nuisance parameters; selection function; censoring policy; atomic/model versions;
+uncertainty ledger; validation tests; and exact data/code release.  This contract
+does not eliminate scientific judgment.  It makes judgment visible, testable,
+and replaceable - the essential properties of a durable line measurement.

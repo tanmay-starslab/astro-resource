@@ -1,0 +1,23 @@
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.88\textwidth,height=7.1cm,
+  xlabel={Increasing column density $Nf\lambda$},
+  ylabel={Equivalent width $W_\lambda$},
+  xmin=0,xmax=6,ymin=0,ymax=4.1,
+  xtick=\empty,ytick=\empty,
+  axis line style={AtlasNavy},
+  label style={font=\small},
+  clip=false]
+  \addplot[AtlasCyan,line width=1.8pt,smooth] coordinates {(0,0.15) (0.5,0.55) (1,1.05) (1.5,1.5) (2,1.75) (2.5,1.91) (3,2.03) (3.5,2.14) (4,2.34) (4.5,2.68) (5,3.12) (5.5,3.58) (6,4.0)};
+  \draw[dashed,AtlasNavy!45] (axis cs:1.55,0)--(axis cs:1.55,3.9);
+  \draw[dashed,AtlasNavy!45] (axis cs:4.05,0)--(axis cs:4.05,3.9);
+  \node[anchor=south,align=center] at (axis cs:0.8,2.7) {linear\\$W\propto N$};
+  \node[anchor=south,align=center] at (axis cs:2.8,2.7) {saturated core\\weak growth};
+  \node[anchor=south,align=center] at (axis cs:5.1,2.7) {damping wings\\$W\propto N^{1/2}$};
+\end{axis}
+\end{tikzpicture}
+\caption{Schematic curve of growth. The location of the transitions depends on oscillator strength, Doppler width, damping constant, and component structure; unresolved saturation can hide substantial column density.}
+\label{fig:curve-of-growth}
+\end{figure}
