@@ -1,0 +1,57 @@
+\usepackage[margin=1in,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage{siunitx}
+\usepackage{booktabs,longtable,tabularx,array,multirow}
+\usepackage{graphicx,pdflscape}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,decorations.pathmorphing,positioning,shapes.geometric}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[round,authoryear]{natbib}
+\usepackage{makeidx}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalise]{cleveref}
+\makeindex
+
+\definecolor{AtlasNavy}{HTML}{0B202C}
+\definecolor{AtlasCyan}{HTML}{177E89}
+\definecolor{AtlasAmber}{HTML}{D99028}
+\definecolor{AtlasCoral}{HTML}{C95645}
+\definecolor{AtlasMist}{HTML}{EDF5F3}
+\hypersetup{colorlinks=true,linkcolor=AtlasNavy,citecolor=AtlasCyan,urlcolor=AtlasCoral,pdftitle={Line Atlas},pdfauthor={Tanmay Singh}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\nouppercase{\leftmark}}
+\fancyhead[R]{\small Line Atlas}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{AtlasNavy}}
+  {\filleft\Large\chaptertitlename\ \thechapter}
+  {1ex}{\titlerule\vspace{1.2ex}\Huge}
+\titlespacing*{\chapter}{0pt}{-15pt}{36pt}
+
+\newtcolorbox{conceptbox}[1][]{enhanced,breakable,colback=AtlasMist,colframe=AtlasCyan,boxrule=0.7pt,arc=0pt,title={#1},fonttitle=\bfseries,coltitle=AtlasNavy}
+\newtcolorbox{cautionbox}[1][Caution]{enhanced,breakable,colback=AtlasAmber!8,colframe=AtlasAmber,boxrule=0.7pt,arc=0pt,title={#1},fonttitle=\bfseries,coltitle=AtlasNavy}
+\newtcolorbox{workedexample}[1][Worked example]{enhanced,breakable,colback=white,colframe=AtlasNavy,boxrule=0.7pt,arc=0pt,title={#1},fonttitle=\bfseries,coltitle=white,colbacktitle=AtlasNavy}
+
+\newcommand{\angstrom}{\text{\AA}}
+\newcommand{\lineid}[1]{\textbf{#1}\index{#1}}
+\newcommand{\ion}[2]{#1\,\textsc{#2}}
+\newcommand{\forbidden}[1]{[\mathrm{#1}]}
+\newcommand{\kms}{\si{\kilo\metre\per\second}}
+\newcommand{\cmthree}{\si{\per\cubic\centi\metre}}
+\newcommand{\Te}{T_{\mathrm e}}
+\newcommand{\nelec}{n_{\mathrm e}}
+\newcommand{\Nion}{N_{\mathrm{ion}}}
+\DeclareMathOperator{\SNR}{S/N}

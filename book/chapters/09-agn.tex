@@ -1,0 +1,369 @@
+\chapter{Active Galactic Nuclei: Accretion, Line Regions, and Outflows}
+\label{chap:agn}
+
+\section{The central engine as an energy-conversion system}
+
+An active galactic nucleus (AGN) is not defined by one spectral line. It is a
+coupled system in which gas loses angular momentum, releases gravitational
+binding energy near a supermassive black hole, produces a broadband radiation
+field, and sometimes launches winds and relativistic jets. The observables
+depend on black-hole mass, accretion rate, spin, magnetic flux, viewing angle,
+obscuration, time variability, and host-galaxy contamination. A taxonomy
+based only on apparent line width or radio brightness therefore mixes
+intrinsic physics with orientation and selection \citep{UrryPadovani1995}.
+
+The Eddington luminosity follows from balancing electron-scattering radiation
+force against gravity in ionized hydrogen:
+\begin{equation}
+ L_{\rm Edd}=\frac{4\pi GM_{\rm BH}m_{\rm p}c}{\sigma_{\rm T}}
+ \simeq 1.26\times10^{38}
+ \left(\frac{M_{\rm BH}}{M_\odot}\right)
+ {\rm erg\,s^{-1}}.
+ \label{eq:eddington}
+\end{equation}
+The Eddington ratio is $\lambda_{\rm Edd}=L_{\rm bol}/L_{\rm Edd}$. If the
+radiative efficiency is $\eta$,
+\begin{equation}
+ L_{\rm bol}=\eta\dot{M}_{\rm acc}c^2.
+ \label{eq:agn-accretion-luminosity}
+\end{equation}
+Neither $\eta$ nor the bolometric correction is universal. They depend on
+accretion state, spin, spectral energy distribution (SED), and anisotropy.
+
+In a geometrically thin, optically thick disk, the local effective temperature
+approximately follows
+\begin{equation}
+ \sigma T_{\rm eff}^{4}(R)=
+ \frac{3GM_{\rm BH}\dot{M}}{8\pi R^3}
+ \left[1-\left(\frac{R_{\rm in}}{R}\right)^{1/2}\right],
+ \label{eq:thin-disk}
+\end{equation}
+with relativistic corrections near the innermost stable orbit
+\citep{ShakuraSunyaev1973}. Integrating blackbody-like annuli motivates the
+optical/UV big blue bump. A hot, compact corona inverse-Compton scatters seed
+photons into an X-ray power law. Dust outside its sublimation radius absorbs
+UV/optical radiation and reradiates in the infrared. These components
+illuminate different line-forming regions with an SED that is not directly
+observed in every direction.
+
+At very low Eddington ratio, radiatively inefficient flows can be hot and
+geometrically thick; at high ratio, advection and radiation pressure modify
+the thin-disk picture. Applying a thin-disk continuum fit outside its regime
+can produce precise but model-specific masses and accretion rates.
+
+\section{A scale hierarchy}
+
+\begin{description}
+ \item[Event-horizon and inner-disk scales:] gravitational radii
+ $r_{\rm g}=GM_{\rm BH}/c^2$, probed by rapid variability, relativistic
+ reflection, and sometimes interferometric imaging.
+ \item[X-ray corona:] compact region producing the hard continuum; its
+ geometry remains uncertain and may change with accretion state.
+ \item[Broad-line region (BLR):] dense, rapidly moving gas producing permitted
+ lines with widths of thousands of $\mathrm{km\,s^{-1}}$; forbidden lines are
+ collisionally suppressed at high density.
+ \item[Dusty structure:] an anisotropic, clumpy distribution near the dust
+ sublimation scale, not necessarily a smooth torus.
+ \item[Narrow-line region (NLR):] lower-density gas extending from tens of
+ parsecs to kiloparsecs, producing forbidden and permitted lines with
+ narrower profiles.
+ \item[Radio jet and lobes:] magnetized relativistic flow spanning sub-parsec
+ to megaparsec scales in the most powerful sources.
+ \item[Galaxy-scale outflow:] ionized, neutral, atomic, and molecular gas
+ accelerated or pressurized by radiation, winds, jets, star formation, or
+ their combination.
+\end{description}
+
+This hierarchy matters because apertures mix it. A fiber spectrum may combine
+BLR light, NLR emission, H II regions, diffuse ionized gas, shocks, and stellar
+continuum. An X-ray spectrum can mix coronal continuum, disk reflection,
+distant reflection, warm absorption, soft excess, and host emission.
+Spectral decomposition is therefore a spatial model even when the object is
+unresolved.
+
+\section{Emission-line regions}
+
+\subsection{Permitted broad lines}
+
+Hydrogen Balmer lines, Mg II, C IV, Ly$\alpha$, and other permitted
+transitions dominate many type-1 AGN spectra. Their profiles encode a
+luminosity-weighted transfer function rather than a simple orbit. Rotation,
+inflow, outflow, anisotropic emission, obscuration, responsivity, and
+radiation pressure all contribute. C IV is particularly susceptible to a
+blueshifted wind component; treating its full width as purely virial can bias
+single-epoch black-hole masses.
+
+The virial mass estimator is
+\begin{equation}
+ M_{\rm BH}=f_{\rm vir}\frac{R_{\rm BLR}\Delta V^2}{G},
+ \label{eq:virial-mass}
+\end{equation}
+where $\Delta V$ is a line-width measure and $f_{\rm vir}$ absorbs BLR
+geometry, inclination, and kinematics. Different use of FWHM versus line
+dispersion and mean versus rms spectra changes the calibration. The result is
+not a direct dynamical mass unless $R_{\rm BLR}$ and the transfer geometry are
+constrained.
+
+\subsection{Reverberation mapping}
+
+If a variable continuum drives line variability, the observed line light
+curve is
+\begin{equation}
+ L_{\rm line}(v,t)=
+ \int \Psi(v,\tau)\,C(t-\tau)\,{\rm d}\tau,
+ \label{eq:reverberation}
+\end{equation}
+where $\Psi(v,\tau)$ is the velocity-delay map
+\citep{BlandfordMcKee1982,Peterson1993}. A characteristic lag gives
+$R_{\rm BLR}\simeq c\tau$ in the rest frame. Velocity-resolved lags can
+distinguish idealized rotation, inflow, and outflow patterns, although finite
+cadence, seasonal gaps, red-noise variability, and line blending blur the
+response.
+
+Campaign design must match three timescales: sampling cadence shorter than the
+expected lag structure, duration several times the largest lag, and enough
+continuum variability to drive a measurable response. The observed lag is
+dilated by $(1+z)$. Flux calibration must be stable across epochs; aperture
+changes and seeing-dependent host contamination can imitate variability.
+
+\subsection{Narrow-line diagnostics}
+
+Classical diagnostic diagrams compare lines close in wavelength so that dust
+and flux-calibration effects are modest. The most familiar plane is
+\begin{equation}
+ \log\frac{[\mathrm{O\,III}]\,5007}{\mathrm{H}\beta}
+ \quad {\rm versus}\quad
+ \log\frac{[\mathrm{N\,II}]\,6583}{\mathrm{H}\alpha},
+ \label{eq:bpt}
+\end{equation}
+with companion planes using [S II]/H$\alpha$ and [O I]/H$\alpha$
+\citep{Baldwin1981,Kewley2001,Kauffmann2003,Kewley2006}. Hard AGN continua
+extend partially ionized zones and enhance low-ionization lines, while stellar
+H II regions occupy a sequence controlled by metallicity and ionization
+parameter.
+
+The boundaries are not laws of nature. They depend on abundance pattern,
+stellar populations, redshift, density, diffuse ionized gas, shocks, and
+aperture mixing. At high redshift, star-forming galaxies can shift relative
+to local training samples. A spatially resolved mixing sequence is often more
+informative than one integrated classification.
+
+Density-sensitive doublets such as [S II] 6716/6731 and [O II] 3726/3729
+constrain electron density only over their responsive range and for the zone
+emitting the ions. Temperature-sensitive auroral-to-nebular ratios such as
+[O III] 4363/(4959+5007) measure a strongly emissivity-weighted temperature.
+In an inhomogeneous NLR, a single density and temperature are summaries, not
+a full structure \citep{OsterbrockFerland2006}.
+
+\section{Obscuration and orientation}
+
+The basic unification insight is that an intrinsically similar central engine
+can look different when the BLR is directly visible, hidden by dusty material,
+or seen through a relativistically beamed jet \citep{UrryPadovani1995}.
+Polarized broad lines, ionization cones, radio morphology, and infrared
+emission support this view. Modern unification is statistical rather than
+absolute. Covering factor, luminosity, host dust, accretion state, and time
+variability also matter; some changing-look AGN alter spectral type on human
+timescales.
+
+Line ratios involving widely separated wavelengths require an extinction
+model. For a foreground-screen approximation,
+\begin{equation}
+ F_{\rm obs}(\lambda)=F_{\rm int}(\lambda)
+ 10^{-0.4E(B-V)k(\lambda)}.
+ \label{eq:reddening}
+\end{equation}
+The Balmer decrement can constrain reddening, but intrinsic ratios vary with
+density, optical depth, collisional excitation, and radiative transfer.
+Mixed dust-emitter geometry does not obey a simple screen.
+
+\section{Absorption from nuclear winds}
+
+\subsection{UV absorption classes}
+
+AGN spectra show narrow absorption lines, mini-broad troughs, and broad
+absorption lines (BALs). Common ions include C IV, Si IV, N V, O VI, Mg II,
+and metastable or excited transitions. Blueshift establishes motion toward
+the observer relative to the systemic frame, but distance and mass flux remain
+unknown without a density or geometry constraint.
+
+Doublet residuals often reveal saturation plus partial coverage. Excited-state
+to ground-state ratios can constrain density; combining density with the
+ionization parameter gives a radial estimate
+\begin{equation}
+ r=\left(\frac{Q_{\rm H}}{4\pi c\,U n_{\rm H}}\right)^{1/2},
+ \label{eq:agn-wind-radius}
+\end{equation}
+where $Q_{\rm H}$ is the ionizing photon rate. The result inherits uncertainty
+from the unobserved extreme-UV SED, level populations, shielding, and whether
+the transitions share a phase.
+
+Variability supplies a complementary constraint. A response to continuum
+changes can bound recombination time and density; transverse changes in
+covering can instead reflect cloud motion. Distinguishing ionization change
+from occultation requires multiple ions and a measured ionizing continuum.
+
+\subsection{X-ray warm absorbers and ultra-fast outflows}
+
+Soft-X-ray spectra of many AGN contain photoionized absorption from oxygen,
+neon, iron, and other elements, often in multiple ionization and velocity
+components. At Fe K energies, blueshifted Fe XXV and Fe XXVI absorption can
+indicate velocities near a tenth of the speed of light in ultra-fast outflows
+\citep{Tombesi2010,KingPounds2015}. The identification is demanding: the
+continuum and reflection model, detector features, blind energy search, and
+number of trials all affect significance. Confirmation through multiple
+transitions or epochs is more persuasive than one residual.
+
+X-ray ionization is commonly described by
+\begin{equation}
+ \xi=\frac{L_{\rm ion}}{n_{\rm H}r^2}
+ \quad [{\rm erg\,cm\,s^{-1}}],
+ \label{eq:xi}
+\end{equation}
+over a stated ionizing energy range. Conventions for $L_{\rm ion}$ differ, so
+$\xi$ values from different codes or papers are not automatically
+interchangeable. A distribution of column over ionization parameter may be
+more realistic than a small number of discrete slabs.
+
+\section{Outflow mass, momentum, and power}
+
+For a thin partial shell of radius $R$, column $N_{\rm H}$, solid-angle
+fraction $\Omega/4\pi$, and characteristic speed $v$, a widely used estimate
+is
+\begin{equation}
+ \dot{M}_{\rm out}\simeq
+ \Omega\,R\,\mu m_{\rm p}N_{\rm H}v,
+ \label{eq:outflow-rate}
+\end{equation}
+where here $\Omega$ is in steradians. Authors sometimes absorb $4\pi$ into a
+dimensionless covering factor; the convention must be stated. The associated
+momentum and kinetic-power rates are
+\begin{equation}
+ \dot{p}_{\rm out}=\dot{M}_{\rm out}v,\qquad
+ \dot{E}_{\rm kin}=\frac{1}{2}\dot{M}_{\rm out}v^2.
+ \label{eq:outflow-power}
+\end{equation}
+
+Another common estimator uses $M_{\rm out}v/R$ or $3M_{\rm out}v/R$ depending
+on whether the assumed flow is a shell or a volume-filling, steady cone.
+This factor is not bookkeeping trivia: it encodes a different history and
+density profile. Radius, deprojection, electron density, conversion factor,
+and low-velocity separation from the host can each dominate uncertainty.
+Tables comparing outflow energetics should homogenize these choices before
+claiming physical trends \citep{Veilleux2005,Fiore2017}.
+
+Ionized mass from a recombination line scales roughly as
+\begin{equation}
+ M_{\rm ion}\propto
+ \frac{L_{\rm recomb}}{n_{\rm e}\alpha_{\rm eff}h\nu},
+\end{equation}
+so adopting an electron density that is too low inflates the mass. Density
+doublets may preferentially weight bright dense clumps, while most mass could
+occupy a lower-density component. Molecular mass from CO requires an
+$\alpha_{\rm CO}$ conversion; neutral atomic mass from absorption requires a
+spin temperature and covering factor. Multi-phase outflow budgets are
+therefore sums of differently conditioned estimates, not directly measured
+totals \citep{Bolatto2013,Cicone2014}.
+
+\section{Jets and radio diagnostics}
+
+Synchrotron emission identifies relativistic electrons and magnetic fields.
+For $S_\nu\propto\nu^{\alpha}$, a steep spectrum generally characterizes
+optically thin lobes while a flat compact core can be a superposition of
+self-absorbed jet components. Doppler beaming changes observed flux,
+timescales, and apparent speed. Polarization and Faraday rotation probe
+ordered fields and intervening magnetized plasma, but depolarization can be
+internal or external.
+
+Jet mechanical power is often inferred from cavities in hot X-ray gas:
+\begin{equation}
+ P_{\rm cav}\simeq \frac{E_{\rm cav}}{t_{\rm age}},
+ \qquad
+ E_{\rm cav}\simeq \frac{\gamma}{\gamma-1}pV.
+\end{equation}
+For relativistic plasma, the enthalpy is commonly approximated as $4pV$.
+Buoyancy, sound-crossing, and refill times give different ages. Radio
+luminosity is an imperfect proxy because synchrotron efficiency, spectral age,
+and environment vary.
+
+Jets can drive shocks, entrain cool gas, inflate bubbles, or maintain
+turbulence. A spatial coincidence between radio and line emission is
+suggestive, but velocity-resolved line ratios and pressure estimates are
+needed to distinguish shock excitation, compression-enhanced star formation,
+and AGN photoionization. The Blandford--Znajek and Blandford--Payne mechanisms
+provide limiting physical pictures for spin-powered and disk-launched
+outflows \citep{BlandfordZnajek1977,BlandfordPayne1982}.
+
+\section{X-ray reflection and the Fe K complex}
+
+Hard coronal photons striking optically thick material produce a reflected
+continuum, absorption edges, and fluorescent lines. Near-neutral iron emits
+Fe K$\alpha$ near 6.4 keV; He-like and H-like iron produce features near
+6.7 and 6.97 keV. Reflection from the inner disk is shifted and skewed by
+Doppler motion, gravitational redshift, and light bending
+\citep{GeorgeFabian1991,Reynolds2014}.
+
+Spin inference uses the inner radius implied by the full relativistic
+reflection spectrum, not merely the red wing of one line. The fit depends on
+disk ionization, density, elemental abundance, inclination, coronal
+illumination profile, continuum curvature, absorption, and the assumption
+that the disk reaches the innermost stable circular orbit. Robust analyses
+compare alternative continua and reflection codes, fit a broad energy band,
+and test whether spin is constrained by the data rather than a parameter
+boundary.
+
+A narrow 6.4-keV component can arise in distant Compton-thick material.
+The Compton shoulder, K$\beta$ line, reflection hump, and variability help
+locate it. In Compton-thick AGN, the direct continuum can be strongly
+suppressed, making equivalent widths large and naive bolometric corrections
+unreliable.
+
+\section{Feedback across phases and timescales}
+
+Nuclear winds can begin at sub-parsec scales while molecular outflows are
+measured over hundreds of parsecs or kiloparsecs. Equality of their
+instantaneous energy fluxes is not required: the phases are observed at
+different epochs of an intermittent source. In an ideal momentum-driven
+picture, shocked wind energy cools efficiently and the large-scale momentum
+rate is of order $L/c$. In an ideal energy-conserving bubble, retained thermal
+energy can produce a larger momentum flux \citep{KingPounds2015}. Leakage,
+gravity, radiative losses, clumpy coupling, and source variability blur this
+distinction.
+
+Evidence for feedback should connect at least three levels:
+\begin{enumerate}
+  \item a credible AGN energy or momentum source;
+  \item a kinematically and spatially resolved response in surrounding gas;
+  \item an effect on cooling, star formation, or gas retention beyond what
+  stellar feedback and gravitational motions plausibly explain.
+\end{enumerate}
+A broad line alone demonstrates disturbed gas, not quenching. Conversely,
+maintenance-mode heating may prevent cooling without an obvious fast outflow.
+
+\section{An AGN line-analysis checklist}
+
+\begin{enumerate}
+ \item Establish systemic redshift with a documented tracer.
+ \item Separate instrumental resolution from intrinsic line width.
+ \item Fit stellar continuum and Balmer absorption before narrow-line ratios.
+ \item Decompose narrow and broad components jointly across linked lines,
+ respecting fixed atomic ratios only where justified.
+ \item Test reddening, aperture mixing, and spatially resolved diagnostic
+ ratios.
+ \item For absorption, fit doublets with optical depth and covering fraction;
+ search all plausible blends.
+ \item For mass outflow rates, publish the geometry, radius, density or
+ conversion factor, projection convention, and velocity statistic.
+ \item For X-ray residuals, include continuum and reflection alternatives and
+ the blind-search trials factor.
+ \item Compare phases at matched aperture and timescale where possible.
+ \item Distinguish measured luminosity or column from inferred mass, power,
+ and causal feedback.
+\end{enumerate}
+
+AGN spectra are richest when treated as a connected system. The UV line that
+measures a nuclear wind, the optical lines that map an ionization cone, the
+CO wings that reveal accelerated molecular gas, the radio lobes that carry
+mechanical energy, and the X-ray lines that probe the corona and fastest wind
+are not competing descriptions. They are different density, temperature,
+radius, and time weightings of one evolving engine.

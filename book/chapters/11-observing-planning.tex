@@ -1,0 +1,285 @@
+\chapter{Redshift Windows, Instrument Choice, and Survey Planning}
+\label{chap:observing-planning}
+
+\section{Begin with the observable, not the facility}
+
+An observing plan should start with a physical measurement: ionic column,
+line-ratio temperature, gas velocity, density, luminosity, spatial gradient,
+or population distribution. The line, required precision, and confounding
+features then determine wavelength coverage, resolving power, sensitivity,
+aperture, and sample design. Beginning with an available instrument and only
+later asking what its spectrum measures invites an exposure-time calculation
+for the wrong observable.
+
+Cosmological redshift maps rest and observed coordinates through
+\begin{equation}
+ \lambda_{\rm obs}=(1+z)\lambda_0,\qquad
+ \nu_{\rm obs}=\frac{\nu_0}{1+z}.
+ \label{eq:redshift-window}
+\end{equation}
+An instrument spanning $\lambda_{\min}$ to $\lambda_{\max}$ can observe a
+line over
+\begin{equation}
+ z_{\min}=\max\left[0,\frac{\lambda_{\min}}{\lambda_0}-1\right],
+ \qquad
+ z_{\max}=\frac{\lambda_{\max}}{\lambda_0}-1,
+\end{equation}
+before accounting for gaps, throughput, atmospheric absorption, detector
+edges, and configuration. A line lying formally inside the range can still
+be unusable.
+
+\section{Resolution, sampling, and velocity information}
+
+Resolving power and approximate velocity resolution are
+\begin{equation}
+ R=\frac{\lambda}{\Delta\lambda},\qquad
+ \Delta v\simeq\frac{c}{R}.
+\end{equation}
+This $\Delta v$ describes an instrumental resolution element, not necessarily
+the centroid precision. A high signal-to-noise unresolved line can be
+centroided more precisely than its width, while intrinsic width requires
+deconvolution of the measured line-spread function (LSF). Real LSFs may have
+non-Gaussian wings and depend on wavelength, source extent, slit illumination,
+detector position, or observing epoch.
+
+Sampling and resolution are distinct. Two or more pixels per resolution
+element may sample an LSF, but correlated extraction and resampling mean the
+pixels are not independent measurements. For doublets or kinematic
+components, compute separation in velocity and simulate the convolved profile
+at the anticipated signal-to-noise ratio. A nominal $R$ alone does not prove
+that the scientific parameters are identifiable.
+
+Extended-source spectroscopy adds spatial--spectral coupling. A slit can turn
+a velocity gradient or off-center illumination into an apparent line shift.
+In a slitless or dispersive X-ray spectrum, source extent broadens features
+along the dispersion direction. Integral-field spectroscopy removes some
+aperture ambiguity but leaves point-spread-function mixing between spaxels.
+
+\section{Flux, luminosity, surface brightness, and exposure time}
+
+For an integrated line flux $F_{\rm line}$,
+\begin{equation}
+ L_{\rm line}=4\pi D_{\rm L}^{2}F_{\rm line}.
+ \label{eq:line-luminosity}
+\end{equation}
+Flux density transformations require the appropriate $(1+z)$ factor:
+\begin{equation}
+ F_{\nu,\rm obs}(\nu_{\rm obs})=
+ \frac{L_{\nu,\rm em}[(1+z)\nu_{\rm obs}]}
+ {4\pi D_{\rm L}^{2}(1+z)}.
+\end{equation}
+Equivalent width in wavelength units scales as
+$W_{\rm obs}=(1+z)W_0$. Surface brightness from a resolved source suffers
+Tolman dimming proportional to $(1+z)^{-4}$, apart from bandpass and
+evolutionary effects. A high-redshift galaxy can have detectable integrated
+flux while its diffuse halo remains inaccessible per resolution element.
+
+For background-dominated counting, signal-to-noise grows roughly as
+$t^{1/2}$, but read noise, source Poisson noise, cosmic rays, confusion,
+calibration floors, and overheads modify the scaling. Radio sensitivity also
+depends on bandwidth, integration time, number of baselines, weighting, and
+weather. Official exposure calculators are preferable to scaling a published
+observation with different source size and background.
+
+The correct sensitivity unit follows the science. An unresolved-line limit in
+erg s$^{-1}$ cm$^{-2}$, a brightness-temperature limit per beam per channel,
+and a column-density limit per velocity interval cannot be substituted for
+one another. For a Gaussian line, the peak signal changes inversely with
+assumed width at fixed integrated flux; every upper limit must state its
+adopted width.
+
+\section{Atmospheric and foreground windows}
+
+Ground-based optical and infrared data encounter telluric absorption,
+night-sky emission, thermal background, and variable transmission. Redshift
+selection can place a target line on an OH skyline or inside a water band even
+when it lies within the nominal spectrograph range. A planning calculation
+should propagate the target redshift uncertainty and barycentric velocity,
+plot all required lines against sky and transmission spectra, and reserve
+continuum on both sides.
+
+Radio-frequency interference and Galactic foreground emission are the
+analogous frequency-dependent hazards in radio work. At X-ray energies,
+detector background, solar-wind charge exchange, Galactic hot gas, and
+photoelectric absorption can dominate faint diffuse sources. Space observing
+removes the terrestrial atmosphere but not foregrounds, scattered light,
+detector systematics, or scheduling constraints.
+
+\section{A current facility map}
+
+The summary below is a planning orientation, not a substitute for the
+call-specific handbook. Instrument modes, offered filters, sensitivities, and
+status change. Values were checked against official documentation available
+in September 2026 and should be rechecked at proposal submission.
+
+\begin{longtable}{@{}p{0.16\textwidth}p{0.23\textwidth}p{0.25\textwidth}p{0.26\textwidth}@{}}
+\caption{Representative facilities and line-spectroscopy roles.
+Coverage and resolution are deliberately approximate.}
+\label{tab:facility-map}\\
+\toprule
+Facility or mode & Approximate coverage or resolution & Strong use case &
+Planning caution\\
+\midrule
+\endfirsthead
+\toprule
+Facility or mode & Approximate coverage or resolution & Strong use case &
+Planning caution\\
+\midrule
+\endhead
+HST/COS FUV and NUV &
+roughly $900$--$3200$ \AA\ across modes; medium-resolution FUV modes commonly
+$R\sim10^4$--$2.4\times10^4$ &
+high-throughput UV absorption in the low-redshift CGM and IGM &
+coverage has detector gaps and lifetime-position constraints; use the current
+LSF and sensitivity tables \citep{COSHandbook2026}\\
+\addlinespace
+HST/STIS &
+UV through optical, with low to high spectral resolution by grating &
+high-resolution UV/optical work, spatially resolved slits, and wavelengths
+outside optimal COS modes &
+usually lower UV throughput than COS; slit and extended-source effects matter\\
+\addlinespace
+JWST/NIRSpec &
+$0.6$--$5.3\,\mu$m; prism $R\sim100$, gratings near $R\sim1000$ or $2700$ &
+rest-optical diagnostics at high redshift; fixed slits, microshutters, and IFU &
+configuration gaps, source centering, spectral overlap, and wavelength-
+dependent LSF \citep{NIRSpecDocs2026}\\
+\addlinespace
+JWST/MIRI &
+mid-infrared imaging and spectroscopy; LRS and medium-resolution IFU modes &
+warm molecular lines, ionic fine-structure lines, dust, and obscured nuclei &
+thermal/background behavior, fringing, and spatially varying IFU response
+\citep{MIRIDocs2026}\\
+\addlinespace
+VLT/UVES &
+approximately $300$--$1100$ nm; typical slit resolving power near $4\times10^4$
+and higher in narrow configurations &
+precise optical absorption, metal systems, and kinematics &
+setting-dependent gaps, slit losses, atmospheric cutoff, and tellurics
+\citep{ESOInstrumentDocs2026}\\
+\addlinespace
+VLT/X-shooter &
+simultaneous UV to near-IR, approximately $0.3$--$2.48\,\mu$m; moderate $R$ &
+broad line inventories and uncertain-redshift transients or galaxies &
+resolution changes by arm and slit; telluric and inter-arm calibration\\
+\addlinespace
+VLT/MUSE &
+optical integral-field spectroscopy, approximately $465$--$930$ nm in common
+modes; $R$ of a few thousand &
+spatially resolved emission, Ly$\alpha$ halos, and blind line searches &
+sky residuals, PSF chromaticity, and surface-brightness selection\\
+\addlinespace
+ALMA &
+receiver bands collectively cover much of $35$--$950$ GHz; offered modes are
+cycle specific &
+CO and other molecules, [C~I], redshifted fine-structure lines, and dust &
+atmospheric windows, configuration, maximum recoverable scale, and excitation
+\citep{ALMAHandbook2026}\\
+\addlinespace
+Karl G. Jansky VLA &
+centimeter coverage chiefly across $1$--$50$ GHz plus lower-frequency systems &
+H~I, radio recombination lines, continuum, polarization, and molecular masers &
+radio-frequency interference, array configuration, bandwidth smearing, and
+missing short spacings \citep{VLAOSS2026}\\
+\addlinespace
+XRISM/Resolve &
+non-dispersive few-eV-class X-ray spectroscopy over its operating band &
+hot-plasma velocities, temperatures, abundances, and line complexes &
+use current in-orbit effective-area and gate-valve status, not prelaunch curves
+\citep{XRISMPOG2026}\\
+\addlinespace
+DESI &
+thousands of simultaneous fibers over a wide optical band &
+large quasar samples, Ly$\alpha$ forest statistics, galaxy redshifts &
+fiber aperture, target selection, spectral covariance, and survey masks
+\citep{DESIInstrument2016,DESI2025LyA}\\
+\addlinespace
+SDSS-V &
+multi-epoch optical and near-infrared spectroscopy plus local-volume mapping &
+Milky Way, black-hole variability, and spatially resolved nearby-galaxy surveys &
+subsurvey selection and data-release-specific calibrations
+\citep{Kollmeier2017,SDSSVDocs2026}\\
+\bottomrule
+\end{longtable}
+
+\section{Worked window logic}
+
+For Ly$\alpha$ at $1215.67$ \AA, an optical spectrograph beginning at
+$3600$ \AA\ first accesses the line near $z=1.96$. This arithmetic says
+nothing about the atmospheric cutoff, quasar brightness, forest path length,
+or whether higher-order Lyman lines are covered. For H$\alpha$ at
+$6562.8$ \AA, the NIRSpec upper wavelength near $5.3\,\mu$m corresponds
+formally to $z\approx7.1$; in practice sensitivity, configuration, line width,
+and neighboring [N~II] determine feasibility.
+
+For a line with rest frequency $115.271$ GHz, CO(1--0) enters a $30$ GHz
+receiver near $z=2.84$. A detected feature at one frequency is not by itself a
+secure rotational identification: adjacent CO transitions at other redshifts,
+[C~I], and fine-structure lines can be confused. Wide bandwidth, a continuum
+counterpart, a second line, or an external redshift collapses this ambiguity.
+
+Velocity coverage must also include uncertainty. A systemic redshift error of
+$300$ km s$^{-1}$ is comparable to an entire narrow-band tuning margin in some
+experiments. For outflows or cluster atmospheres, expected wings and member
+velocities may require thousands of km s$^{-1}$ around systemic. Baseline for
+continuum fitting belongs inside the requested band.
+
+\section{A reproducible planning workflow}
+
+\begin{enumerate}
+ \item State the primary physical parameter and the accuracy needed to change
+ the scientific conclusion.
+ \item List required and corroborating lines with vacuum rest wavelengths or
+ rest frequencies, atomic database version, and expected ratios.
+ \item Propagate the full redshift probability distribution into observed
+ wavelength, not just the best redshift.
+ \item Overlay configurations, detector gaps, skylines, telluric bands,
+ foregrounds, and known blends.
+ \item Choose $R$ by forward-simulating the narrowest components or doublets
+ that must be separated.
+ \item Predict line flux, width, spatial size, continuum, and background in
+ the exact aperture or beam used by the sensitivity calculation.
+ \item Model acquisition, slit or shutter losses, dithers, nods, mosaics,
+ calibration, overhead, and maximum recoverable scale.
+ \item Define the detection statistic, extraction aperture, upper-limit width,
+ and treatment of nondetections before inspecting the result.
+ \item Include a validation route: a doublet partner, independent redshift,
+ second transition, blank sky, standard star, or repeat epoch.
+ \item Record software, calibration reference files, ephemeris corrections,
+ data release, exposure-calculator version, and all manual masks.
+\end{enumerate}
+
+\section{Survey selection is part of the astrophysics}
+
+A targeted program and a survey answer different questions. Target selection
+based on UV brightness can exclude dusty galaxies; requiring background
+quasars weights CGM sightlines by the quasar luminosity function and angular
+availability; fiber collisions and finite apertures reshape environmental
+samples; line-flux selection favors high equivalent width. Population
+statistics require a selection function $S(\boldsymbol{x})$ that enters the
+likelihood or completeness correction.
+
+For an absorption survey, the usable path length depends on wavelength masks,
+signal-to-noise, proximity exclusions, and the column and width of a
+hypothetical line. An incidence estimate is therefore based on effective path,
+not merely number of spectra. For an emission-line survey, inject-and-recover
+tests should span size, width, continuum, and wavelength because completeness
+is multidimensional.
+
+Large facilities do not eliminate small systematics. DESI has transformed
+Ly$\alpha$ forest statistics through hundreds of thousands of spectra, while
+SDSS-V adds multi-epoch and spatial dimensions; their power comes from
+documented calibration and selection as much as sample size
+\citep{DESI2025LyA,SDSSVDocs2026}. A line atlas should link each diagnostic to
+both the physical model and the survey transfer function.
+
+\section{The final pre-proposal audit}
+
+Before submission, verify five boundaries: the line is in a high-throughput
+region for the full redshift uncertainty; the resolution answers the stated
+kinematic or deblending question; the sensitivity uses the correct line width
+and source extent; the spatial configuration recovers the relevant scales;
+and at least one alternative identification or systematic has a planned test.
+Then repeat the check against the current official call. A proposal built
+around a static instrument table can become obsolete, but a plan built around
+explicit observables and a reproducible forward model remains portable.

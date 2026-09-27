@@ -1,0 +1,18 @@
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[x=1.12cm,y=0.92cm]
+  \draw[->,AtlasNavy] (0,0)--(10.8,0) node[right]{$\log n_{\rm H}\,[\mathrm{cm}^{-3}]$};
+  \draw[->,AtlasNavy] (0,0)--(0,7.8) node[above]{$\log T\,[\mathrm K]$};
+  \foreach \x/\lab in {1/$-5$,3/$-3$,5/$-1$,7/$1$,9/$3$}{\draw[AtlasNavy!25] (\x,0)--(\x,7.5);\node[below] at (\x,0){\small\lab};}
+  \foreach \y/\lab in {1/$1$,2/$2$,3/$3$,4/$4$,5/$5$,6/$6$,7/$7$}{\draw[AtlasNavy!25] (0,\y)--(10.5,\y);\node[left] at (0,\y){\small\lab};}
+  \filldraw[fill=AtlasCoral!14,draw=AtlasCoral] (2.6,6.0) ellipse (1.35 and 0.75) node{hot halo};
+  \filldraw[fill=AtlasCyan!14,draw=AtlasCyan] (3.0,4.9) ellipse (1.5 and 0.72) node{warm CGM};
+  \filldraw[fill=AtlasCyan!14,draw=AtlasCyan] (5.3,4.0) ellipse (1.2 and 0.55) node{WIM};
+  \filldraw[fill=AtlasAmber!17,draw=AtlasAmber] (6.1,3.75) ellipse (1.2 and 0.48) node{WNM};
+  \filldraw[fill=AtlasAmber!17,draw=AtlasAmber] (7.5,2.0) ellipse (1.1 and 0.55) node{CNM};
+  \filldraw[fill=AtlasNavy!10,draw=AtlasNavy] (9.0,1.25) ellipse (1.25 and 0.55) node{molecular};
+  \node[align=left,anchor=west,text=AtlasNavy] at (0.5,7.2) {schematic regions;\\not hard boundaries};
+\end{tikzpicture}
+\caption{A schematic temperature--density map of common baryonic phases. Pressure, radiation field, metallicity, turbulence, magnetic fields, and non-equilibrium history broaden and overlap every region.}
+\label{fig:phase-space}
+\end{figure}

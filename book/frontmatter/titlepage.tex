@@ -1,0 +1,21 @@
+\begin{titlepage}
+\pagecolor{AtlasNavy}
+\color{white}
+\vspace*{0.14\textheight}
+{\Huge\bfseries LINE ATLAS\par}
+\vspace{1.2em}
+{\Large A Field Guide to Astrophysical Spectroscopy\par}
+\vfill
+\begin{tikzpicture}[x=.96\textwidth,y=3.4cm]
+  \draw[AtlasMist!30] (0,0)--(1,0);
+  \foreach \x/\h/\c in {0.05/0.35/AtlasCyan,0.16/0.60/AtlasCoral,0.29/0.48/AtlasAmber,0.46/0.82/AtlasCyan,0.62/0.54/AtlasAmber,0.78/0.92/AtlasCoral,0.91/0.44/AtlasCyan}{
+    \draw[line width=2pt,\c] (\x,0)--(\x,\h);
+  }
+\end{tikzpicture}
+\vfill
+{\large Tanmay Singh\par}
+\vspace{0.5em}
+{\small First edition --- \today\par}
+\end{titlepage}
+\nopagecolor
+\color{black}

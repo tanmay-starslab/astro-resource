@@ -1,0 +1,467 @@
+\chapter{Absorption-Line Spectroscopy: From Pixels to Physical Gas}
+\label{chap:absorption}
+
+\section{What an absorption spectrum actually measures}
+
+An absorption spectrum is a comparison between received flux and an estimate
+of the flux that would have been received without the absorber. In its most
+useful forward form,
+\begin{equation}
+ F_{\rm pix}(\lambda)=
+ \left\{
+ C(\lambda)\left[(1-C_{\rm f})+
+ C_{\rm f}\exp\left(-\sum_k\tau_k(\lambda)\right)\right]
+ \right\}\otimes {\cal L}(\lambda)
+ +B(\lambda)+\epsilon(\lambda),
+ \label{eq:abs-forward}
+\end{equation}
+where $C$ is the source continuum and broad emission spectrum, $C_{\rm f}$ is
+the covering fraction, $\mathcal{L}$ is the instrumental line-spread function
+(LSF), $B$ is any residual background or scattered light, and $\epsilon$ is
+noise. Each physical velocity component and each blended transition
+contributes an optical-depth profile $\tau_k$. Equation~\ref{eq:abs-forward}
+is a reminder that a fitted Voigt component is not directly observed. The
+detector records a sampled convolution of source, absorber, instrument, and
+background.
+
+For an intervening quasar absorber the covering fraction is often taken as
+unity, but this should not become reflex. Partial coverage is common in
+intrinsic AGN absorption, stellar winds, compact continuum sources occulted by
+small clouds, and spatially mixed emission/absorption. A nonzero flux floor in
+a strong doublet can arise from partial coverage, unresolved velocity
+structure, scattered light, an erroneous background, or unrelated emission.
+The competing explanations must be fitted at the flux level.
+
+The line identification itself is a hypothesis. A persuasive identification
+uses multiple transitions at one redshift, expected strength ordering, absence
+of plausible alternatives, and consistency with instrumental coverage.
+Atomic wavelengths and oscillator strengths must come from a versioned source
+such as \citet{Morton2003}; precision claims should not mix air and vacuum
+wavelengths or oscillator-strength compilations silently.
+
+\section{Coordinates, frames, and velocity conventions}
+
+The first redshift estimate is
+\begin{equation}
+ 1+z = \frac{\lambda_{\rm obs}}{\lambda_0}
+     = \frac{\nu_0}{\nu_{\rm obs}}.
+ \label{eq:redshift}
+\end{equation}
+For velocity structure within a system, define the convention explicitly. A
+commonly used local coordinate about reference redshift $z_{\rm ref}$ is
+\begin{equation}
+ v=c\,\frac{z-z_{\rm ref}}{1+z_{\rm ref}}.
+ \label{eq:local-velocity}
+\end{equation}
+At large offsets, use the exact relativistic relation or work directly in
+redshift. Wavelength calibration must also specify frame: observatory,
+heliocentric, barycentric, Local Standard of Rest, or a galaxy systemic frame.
+Optical, radio, and relativistic velocity definitions differ at non-negligible
+redshift. Combining UV, optical, and radio spectra without harmonizing
+definitions can manufacture offsets comparable to the line widths being
+interpreted.
+
+The adopted systemic redshift often dominates an outflow velocity's
+uncertainty, especially if it comes from a broad or asymmetric line. Narrow
+stellar absorption, molecular lines, or spatially integrated nebular emission
+may each define a different practical zero point.
+
+\section{Continuum placement is part of the inference}
+
+Dividing by a single best continuum and forgetting its uncertainty produces
+overconfident line measurements. The preferred approach is to model local
+continuum parameters jointly with the absorption. For an isolated line, a
+low-order polynomial or spline over windows demonstrably free of absorption
+may suffice. For a quasar Ly$\alpha$ forest, broad emission complexes and
+correlated forest absorption require a global template, principal components,
+Gaussian process, or forward model. For galaxy spectra, stellar photospheric
+features and the instrumental response may be comparable to the interstellar
+line.
+
+Continuum choices should be tested by:
+\begin{enumerate}
+  \item changing the fit-window boundaries;
+  \item increasing or decreasing continuum flexibility;
+  \item injecting synthetic lines into unnormalized data;
+  \item propagating continuum samples into equivalent width and column
+  posteriors;
+  \item checking blank regions for biased residuals and underestimated
+  covariance.
+\end{enumerate}
+For broad, shallow features, continuum uncertainty can dominate photon noise.
+A claimed broad Ly$\alpha$ absorber or AGN trough is not secure if it
+disappears under plausible continuum models.
+
+\section{Equivalent width: robust summary, incomplete physics}
+
+For continuum-normalized flux $F_n(\lambda)$, the observed-frame equivalent
+width is
+\begin{equation}
+ W_{\lambda,\rm obs}=\int_{\lambda_1}^{\lambda_2}
+       \left[1-F_n(\lambda)\right]\,{\rm d}\lambda,
+ \qquad
+ W_{\lambda,\rm r}=\frac{W_{\lambda,\rm obs}}{1+z}.
+ \label{eq:abs-equivalent-width}
+\end{equation}
+Equivalent width is conserved by a normalized LSF when all absorbed flux is
+included and the continuum is correct. This makes it useful at modest
+resolution. It does not make it a unique measure of column density.
+
+In the optically thin regime, the rest equivalent width satisfies
+\begin{equation}
+ N\,[{\rm cm^{-2}}] =
+ 1.13\times10^{20}\,
+ \frac{W_{\lambda,\rm r}\,[\text{\AA}]}
+      {f\lambda_0^2\,[\text{\AA}^2]},
+ \label{eq:abs-linear-cog}
+\end{equation}
+where $f$ is the oscillator strength. Once the line saturates, equivalent
+width becomes sensitive mainly to Doppler width and component spread.
+Eventually damping wings restore a strong column dependence. These are the
+linear, saturated, and damping portions of the curve of growth
+\citep{Spitzer1978,Draine2011}.
+
+For a pixel sum with independent errors, a simple statistical variance is
+\begin{equation}
+ \sigma^2(W_\lambda)
+ =\sum_i \left(\Delta\lambda_i\,\sigma_{F_n,i}\right)^2,
+\end{equation}
+but reduced spectra often have correlated noise from resampling, flat fields,
+and background subtraction. Continuum uncertainty, integration-window
+uncertainty, fixed-pattern noise, and blends must be added or marginalized.
+An empirical distribution from line-free windows with the same width is often
+more realistic than a diagonal-noise formula.
+
+\section{Optical depth and column density}
+
+\subsection{The apparent-optical-depth method}
+
+For full coverage and a reliable continuum, define
+\begin{equation}
+ \tau_{\rm a}(v)=\ln\left[\frac{1}{F_n(v)}\right].
+ \label{eq:aod-tau}
+\end{equation}
+The apparent column density per unit velocity is
+\begin{equation}
+ N_{\rm a}(v)=
+ \frac{m_{\rm e}c}{\pi e^2}\frac{\tau_{\rm a}(v)}{f\lambda_0}
+ =3.768\times10^{14}
+ \frac{\tau_{\rm a}(v)}
+      {f\lambda_0[\text{\AA}]}
+ \frac{{\rm cm^{-2}}}{{\rm km\,s^{-1}}}.
+ \label{eq:abs-aod-column}
+\end{equation}
+Integrating over velocity gives $N_{\rm a}$. The method preserves kinematic
+information and enables a direct saturation test: two transitions of the same
+ion should yield the same $N_{\rm a}(v)$ when resolved and unsaturated
+\citep{SavageSembach1991}.
+
+If the stronger transition yields systematically smaller $N_{\rm a}(v)$ than
+the weaker one, unresolved saturation is likely. Equality is necessary but
+not always sufficient: both transitions can be severely saturated and
+unresolved. Negative fluxes, low signal-to-noise, and logarithmic
+transformation introduce biases; simulations tailored to the data help
+quantify them \citep{Fox2005}. Report lower limits rather than forcing a
+precise column from black cores.
+
+\subsection{Voigt profiles}
+
+The intrinsic absorption cross section combines Doppler and natural
+broadening. For component $j$,
+\begin{equation}
+ \tau_j(\nu)=N_j\frac{\pi e^2}{m_{\rm e}c}f\,
+ \phi_{\rm V}(\nu;\nu_j,b_j,\Gamma),
+ \label{eq:voigt-tau}
+\end{equation}
+where the normalized Voigt profile $\phi_{\rm V}$ is the convolution of a
+Gaussian and Lorentzian, $b_j$ is the Doppler parameter, and $\Gamma$ is the
+radiative damping constant. The model flux must be convolved with the
+wavelength-dependent LSF before comparison with pixels.
+
+Component decomposition is rarely unique. A high-column narrow component can
+resemble a lower-column broader component after convolution. Additional weak
+components can improve the likelihood without corresponding to distinct
+physical clouds. Useful safeguards are:
+\begin{itemize}
+  \item fit all usable transitions of an ion simultaneously;
+  \item tie redshifts only where a shared kinematic phase is physically
+  justified;
+  \item allow thermal widths to vary by ion mass rather than forcing one $b$;
+  \item compare models using predictive checks, not reduced $\chi^2$ alone;
+  \item report integrated columns and velocity percentiles, which are often
+  more stable than the number of fitted components.
+\end{itemize}
+
+\subsection{Thermal and non-thermal broadening}
+
+For a Gaussian component,
+\begin{equation}
+ b_i^2=b_{\rm nt}^2+\frac{2k_{\rm B}T}{m_i},
+ \label{eq:b-decomposition}
+\end{equation}
+where $b_{\rm nt}$ represents unresolved turbulent, bulk, and structural
+broadening. Two ions believed to be co-spatial can in principle solve for
+$T$ and $b_{\rm nt}$:
+\begin{equation}
+ T=\frac{m_1m_2}{2k_{\rm B}(m_2-m_1)}
+   \left(b_1^2-b_2^2\right).
+ \label{eq:abs-two-ion-temperature}
+\end{equation}
+This inference fails if the ions are not co-spatial, if one profile contains
+unresolved subcomponents, or if their fitted component boundaries differ.
+Hydrogen plus a heavy ion gives the largest mass leverage. A broad H I line
+without aligned metal absorption can constrain temperature only after blends
+and continuum systematics are controlled.
+
+\section{Saturation, doublets, and covering fraction}
+
+The line-center optical depth for a Doppler component can be written
+\begin{equation}
+ \tau_0 \simeq 1.497\times10^{-15}
+ \frac{N[{\rm cm^{-2}}]\,f\,\lambda_0[\text{\AA}]}
+      {b[{\rm km\,s^{-1}}]}.
+ \label{eq:tau-zero}
+\end{equation}
+This quick calculation should be made during observing design. A high
+signal-to-noise spectrum does not recover information erased by saturation;
+one needs weaker transitions, higher resolution, damping wings, or a
+continuum edge.
+
+For a resolved doublet with optical-depth ratio $R$ and a velocity-dependent
+covering fraction,
+\begin{align}
+ I_{\rm weak}(v)&=1-C_{\rm f}(v)+C_{\rm f}(v)e^{-\tau(v)},\\
+ I_{\rm strong}(v)&=1-C_{\rm f}(v)+C_{\rm f}(v)e^{-R\tau(v)}.
+ \label{eq:partial-cover}
+\end{align}
+Solving these equations can separate optical depth from coverage under a
+homogeneous-screen assumption. Real sources may have a distribution of
+optical depth across the emitting surface, and broad-line and continuum
+regions can have different coverage. Consequently, the algebraic solution is
+a compact model, not a geometric image.
+
+Doublet ratios are also distorted by blending. The O VI 1037 line, for
+example, can overlap unrelated interstellar or intergalactic absorption; C IV
+and Si IV doublets can overlap themselves in sufficiently broad AGN winds.
+Global multiplet fitting is safer than measuring each trough independently.
+
+\section{The curve of growth as a diagnostic}
+
+The curve of growth predicts $W_\lambda(N,b)$ for one component. Fitting
+several transitions with different $f\lambda$ can constrain $N$ and $b$ even
+when profiles are not resolved. The method is valuable for sparse data but
+compresses away velocity information. Multi-component structure produces an
+effective $b$ whose physical meaning is limited.
+
+A practical curve-of-growth analysis should display the data and posterior in
+$W/\lambda$ versus $Nf\lambda$ space, list the transitions excluded for
+blending, and test whether a single $(N,b)$ fits both weak and strong lines.
+If only saturated transitions are available, the posterior often has a long
+column-density tail. Quoting symmetric errors in that situation is
+misleading. The output may properly be a lower bound.
+
+\section{Blends and line confusion}
+
+Line confusion increases toward short rest wavelength, high source redshift,
+and low resolution. A candidate feature should be tested against a line list
+at every known absorber redshift, Galactic ISM and molecular features,
+geocoronal emission, detector artifacts, and telluric absorption for
+ground-based data. The most reliable workflow is simultaneous:
+\begin{enumerate}
+  \item construct a master list of expected transitions for all systems;
+  \item map every transition into observed wavelength;
+  \item fit overlapping optical depths in one flux model;
+  \item require shared parameters only within physically motivated groups;
+  \item inspect residuals in detector coordinates as well as wavelength.
+\end{enumerate}
+
+Airglow can be time dependent; separating orbital night may reduce it at the
+cost of exposure. Telluric absorption is multiplicative and depends on
+airmass, humidity, and time. Sky emission is additive and has a spatial
+profile. Treating all three with a generic mask discards information and can
+leave biased wings. A forward model or physically chosen exclusion is
+preferable.
+
+\section{Instrumental resolution and sampling}
+
+Resolving power $R=\lambda/\Delta\lambda$ corresponds approximately to
+\begin{equation}
+ \Delta v_{\rm FWHM}\simeq \frac{c}{R}.
+ \label{eq:r-to-v}
+\end{equation}
+The equation is a planning shorthand. Real LSFs can be non-Gaussian,
+wavelength dependent, and altered by source extent, slit illumination, focus,
+or detector location. A model using a Gaussian with the nominal $R$ can bias
+narrow-line columns and component widths. Use the tabulated or empirical LSF
+for the actual setting.
+
+Nyquist sampling is not the same as spectral resolution. Rebinning can improve
+visual signal-to-noise per bin but does not create information and generates
+covariance. Keep native or minimally resampled pixels for the likelihood;
+rebin for presentation only, or carry the covariance matrix. Coaddition is
+also a model: exposures can differ in wavelength zero point, LSF, sensitivity,
+fixed-pattern structure, and background. Fitting exposures jointly is often
+safer than coadding first.
+
+\section{From ionic columns to a physical phase}
+
+\subsection{Photoionization models}
+
+Define the ionization parameter
+\begin{equation}
+ U=\frac{\Phi_{\rm H}}{n_{\rm H}c}
+  =\frac{n_\gamma(E>13.6\,{\rm eV})}{n_{\rm H}}.
+ \label{eq:abs-ionization-parameter}
+\end{equation}
+Given an incident spectrum, elemental abundances, geometry, stopping column,
+and equilibrium assumptions, a code such as Cloudy predicts ionic columns
+\citep{Ferland2017}. Ratios of successive stages of one element can constrain
+$U$ while reducing abundance sensitivity. Combining H I with metal ions then
+constrains metallicity. In practice, multiphase structure often prevents one
+$U$ from fitting every ion.
+
+The radiation field is part of the model, not a universal constant.
+Metagalactic UV-background prescriptions differ in amplitude and hardness
+\citep{HaardtMadau2012}; nearby galaxies or an AGN can dominate locally.
+Because $U$ constrains a photon-density to gas-density ratio, changing the
+field changes the inferred $n_{\rm H}$ and path length
+\begin{equation}
+ L=\frac{N_{\rm H}}{n_{\rm H}}.
+\end{equation}
+Path lengths that exceed the halo or imply implausible pressure are powerful
+model checks.
+
+A reproducible photoionization analysis reports the code version, atomic
+database, incident spectrum and normalization, solar abundance reference,
+relative-abundance priors, dust/depletion treatment, geometry, density law,
+stopping rule, and whether upper limits enter the likelihood. Publishing the
+model grid or scripts is more useful than publishing a corner plot alone.
+
+\subsection{Collisional and non-equilibrium models}
+
+In collisional ionization equilibrium (CIE), ion fractions depend mainly on
+temperature for a specified abundance set. This makes ion ratios appear to be
+thermometers. The assumptions are restrictive: the gas must have had time to
+ionize and recombine, photoionization must be negligible, and electrons must
+be close to a Maxwellian distribution. Rapidly cooling gas can remain
+overionized, while a shock can remain underionized. Non-equilibrium cooling
+calculations show that the same ionic ratio may correspond to different
+thermal histories \citep{GnatSternberg2007}.
+
+The cooling time and recombination time should be compared:
+\begin{equation}
+ t_{\rm rec}(X^i)=\frac{1}{\alpha_{i}(T)n_{\rm e}}.
+\end{equation}
+If $t_{\rm cool}\lesssim t_{\rm rec}$, equilibrium is doubtful. Turbulent
+mixing and conduction create distributions of temperature rather than one
+$T$. In that case, integrated interface columns and kinematic alignment may
+be more meaningful than a single-temperature fit.
+
+\section{Abundances, depletion, and ionization corrections}
+
+An elemental abundance inferred from ions is
+\begin{equation}
+ [{\rm X/H}]=
+ \log\left(\frac{N_{X^i}}{N_{\rm H\,I}}\right)
+ +\log\left(\frac{f_{\rm H\,I}}{f_{X^i}}\right)
+ -\log({\rm X/H})_\odot.
+ \label{eq:abs-ionic-abundance}
+\end{equation}
+Every term needs a convention. The solar scale changes at the
+$0.01$--$0.1$ dex level for important elements \citep{Asplund2021}. Dust
+removes refractory elements from the gas. Nucleosynthetic patterns can depart
+from solar, especially at low metallicity or after delayed Type Ia and AGB
+enrichment. Charge exchange can couple some ions to H I. Treating every
+difference as ionization produces a deceptively precise but wrong
+metallicity.
+
+Useful abundance combinations include:
+\begin{itemize}
+  \item O I/H I for predominantly neutral gas, with charge-exchange caveats;
+  \item S II or Zn II as comparatively weakly depleted tracers where usable;
+  \item Fe/alpha-element ratios for depletion plus enrichment history;
+  \item N/O for secondary versus primary nitrogen, provided ionization phases
+  match.
+\end{itemize}
+Upper limits are scientifically active. A non-detection of a low ion can rule
+out a high-density solution; a non-detection of N V can disfavor one hard
+spectrum. Censoring limits from a likelihood because they are not detections
+throws away this leverage.
+
+\section{Population measurements}
+
+For an absorber survey, completeness is a function
+$C(W,z,\lambda,b,\mathrm{S/N},\ldots)$, not one threshold. The incidence is
+often written
+\begin{equation}
+ \frac{{\rm d}{\cal N}}{{\rm d}z}
+ =\frac{1}{\Delta z_{\rm eff}}
+  \sum_j \frac{1}{C_j},
+ \qquad
+ \Delta z_{\rm eff}=\int g(z)\,{\rm d}z,
+\end{equation}
+where $g(z)$ accounts for coverage blocked by detector gaps, foreground
+features, proximity exclusions, and sensitivity. For cosmological comparison,
+one can use absorption distance
+\begin{equation}
+ {\rm d}X=\frac{(1+z)^2H_0}{H(z)}\,{\rm d}z.
+\end{equation}
+Blind injection and recovery through the actual detection pipeline is the
+most direct completeness calibration.
+
+Association with galaxies introduces another selection function: magnitude
+limit, angular coverage, redshift success, fiber collision, and group-finding
+algorithm. Calling an absorber isolated when the galaxy survey is incomplete
+is not a physical result. The low-redshift COS survey literature provides
+useful examples of documenting redshift path and line-finding methodology
+\citep{Danforth2016}.
+
+\section{A reproducible analysis recipe}
+
+\begin{enumerate}
+  \item Preserve calibrated exposures and quality arrays; do not begin from a
+  screenshot or display-only coadd.
+  \item Verify wavelength frames and align exposures using narrow,
+  well-identified features without erasing real shifts.
+  \item Define a transition list with versioned atomic data.
+  \item Fit continuum, background, absorption, and the correct LSF jointly
+  where practical.
+  \item Measure equivalent widths and apparent columns as minimally
+  model-dependent summaries.
+  \item Test saturation with weaker lines, doublets, higher Lyman lines, or
+  Lyman-edge and damping information.
+  \item Fit physically motivated multiplets, but separate robust integrated
+  quantities from non-unique component structure.
+  \item Compare photoionized, collisionally ionized, and non-equilibrium
+  hypotheses; use posterior predictive spectra.
+  \item Propagate atomic, continuum, calibration, radiation-field, abundance,
+  depletion, and geometry systematics into derived mass or energetics.
+  \item Release normalized and unnormalized spectra, masks, LSFs, code, model
+  grids, posterior samples, and machine-readable measurements.
+\end{enumerate}
+
+\section{Failure modes worth remembering}
+
+\begin{description}
+  \item[Black core, precise column:] impossible without weaker transitions or
+  damping and edge information; the correct result is often a limit.
+  \item[Same velocity, same phase:] not guaranteed in a projected,
+  multi-component medium.
+  \item[Large $b$, high temperature:] only an upper limit if non-thermal and
+  unresolved broadening are possible.
+  \item[Doublet ratio looks right:] both members may be unresolved and
+  saturated, or one may be blended.
+  \item[One-zone model fits most ions:] the excluded ion may be the clearest
+  evidence for a second phase.
+  \item[High formal significance:] unmodeled continuum flexibility, line
+  searching across many resolution elements, and calibration features change
+  the false-positive rate.
+  \item[Precise mass from one sightline:] geometry and covering fraction can
+  dominate the error even when the column is secure.
+\end{description}
+
+Absorption spectroscopy is powerful because it detects very little material.
+That same sensitivity makes it vulnerable to hidden saturation, unrelated
+blends, and model-dependent ionization corrections. The defensible strategy
+is layered: preserve the pixel-level evidence, extract model-light
+measurements, and add physical assumptions one at a time.

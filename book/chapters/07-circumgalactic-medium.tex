@@ -1,0 +1,425 @@
+\chapter{The Circumgalactic Medium, the Intergalactic Medium, and the Cosmic Web}
+\label{chap:cgm-igm}
+
+\section{A working map of diffuse baryons}
+
+The gaseous Universe is not naturally divided into boxes. Gas crosses the
+interstellar medium (ISM), circumgalactic medium (CGM), intragroup medium, and
+intergalactic medium (IGM); the same parcel may be accreted, form stars, be
+ejected, cool, mix, and return. The names are nevertheless useful if they are
+treated as operational definitions rather than immutable phases. In this
+chapter, the \emph{CGM} is gas outside the bright stellar body and cold
+star-forming disk but inside the region dynamically associated with a galaxy's
+dark-matter halo. The \emph{IGM} is gas outside individual halos. The
+\emph{cosmic web} is the evolving network of sheets, filaments, nodes, and
+voids created by gravitational instability. These definitions deliberately
+leave a transition zone: around groups, interacting systems, and splashback
+regions, assignment to one galaxy can be physically ambiguous
+\citep{Tumlinson2017,FaucherGiguereOh2023}.
+
+A convenient halo scale is defined by
+\begin{equation}
+ M_{\Delta}=\frac{4\pi}{3}\,\Delta\,\rho_{\rm ref}(z)R_{\Delta}^{3},
+ \label{eq:halo-definition}
+\end{equation}
+where the reference density may be the critical or mean matter density.
+Authors who quote $R_{200\rm c}$, $R_{200\rm m}$, or a "virial radius" are
+not necessarily using the same boundary. The conversion can be tens of
+percent and should never be hidden when normalizing impact parameters.
+Associated velocity and temperature scales are
+\begin{align}
+ V_{\Delta} &= \left(\frac{GM_{\Delta}}{R_{\Delta}}\right)^{1/2},\\
+ T_{\rm vir} &\simeq \frac{\mu m_{\rm p}V_{\Delta}^{2}}{2k_{\rm B}},
+ \label{eq:tvir}
+\end{align}
+with mean molecular weight $\mu$. For an ionized, Milky-Way-mass halo,
+$T_{\rm vir}$ is of order $10^{6}$ K. This number is a guide, not a claim
+that the halo is isothermal.
+
+The most important conceptual correction to a one-phase cartoon is that
+temperature labels do not define unique structures. "Cool" gas near
+$10^{4}$ K may occur in infalling filaments, stripped satellite wakes,
+radiatively cooled wind material, turbulent mixing layers, or self-shielded
+clouds. "Warm" gas near $10^{5}$--$10^{6}$ K may be cooling through a
+short-lived temperature interval rather than occupying a stable volume.
+"Hot" gas can be supported approximately hydrostatically, driven by winds,
+or shock heated during accretion. Observed velocity coincidence between two
+ions does not prove that they are co-spatial. A spectrograph collapses a
+three-dimensional, time-dependent medium into optical depth versus one
+velocity coordinate.
+
+\section{Why the CGM is central to galaxy evolution}
+
+A galaxy's stellar mass is only the integrated residue of a larger baryon
+cycle. Cosmological inflow supplies gas; cooling and angular-momentum
+transport deliver some of it to the ISM; stars and black holes return mass,
+metals, momentum, cosmic rays, and radiation; satellites donate gas by winds
+and stripping; and some material escapes or is exchanged between halos.
+Consequently, the CGM is simultaneously a fuel reservoir, a feedback
+calorimeter, and a record of environmental processing
+\citep{Tumlinson2017,FaucherGiguereOh2023,Hafen2019}.
+
+For a control surface at radius $r$, a formal instantaneous mass flux is
+\begin{equation}
+ \dot{M}(r)=\int \rho(\boldsymbol{x})
+        \left[\boldsymbol{v}(\boldsymbol{x})-\boldsymbol{v}_{\rm frame}\right]
+        \cdot \hat{\boldsymbol{r}}\,r^{2}\,{\rm d}\Omega .
+ \label{eq:mass-flux}
+\end{equation}
+This equation is straightforward in a simulation and extremely difficult to
+infer from a single sightline. An absorber supplies a column density and a
+line-of-sight velocity, but generally not its distance along the sightline,
+solid angle, transverse velocity, or time history. Thus labels such as
+"inflow" and "outflow" should be probabilistic unless geometry supplies
+additional evidence. Major-axis/minor-axis trends, metallicity, comparison
+with the escape speed, resolved emission, or multiple nearby sightlines can
+strengthen the interpretation, but none is individually decisive.
+
+The cool-CGM mass inferred from absorption illustrates the inference chain.
+For a hydrogen column profile $N_{\rm H}(R)$ and azimuthal covering fraction
+$f_{\rm c}(R)$,
+\begin{equation}
+ M_{\rm cool}(<R_{\rm max}) =
+ 2\pi \mu_{\rm H}m_{\rm p}
+ \int_{0}^{R_{\rm max}} N_{\rm H}(R) f_{\rm c}(R)R\,{\rm d}R .
+ \label{eq:cgm-mass}
+\end{equation}
+The directly constrained quantity is often $N_{\rm H\,I}$, not $N_{\rm H}$.
+Writing $f_{\rm H\,I}=N_{\rm H\,I}/N_{\rm H}$ gives
+$N_{\rm H}=N_{\rm H\,I}/f_{\rm H\,I}$. The neutral fraction can be tiny and
+depends on density, spectrum and amplitude of the ionizing field, temperature,
+shielding, and non-equilibrium history. Large masses inferred for cool halo
+gas are therefore important but model conditioned
+\citep{Werk2014,Prochaska2017}. A robust paper reports which part of
+Equation~\ref{eq:cgm-mass} is measured and which part is assumed.
+
+\section{Thermal competition and multiphase structure}
+
+Two timescales provide a useful first organization. An approximate radiative
+cooling time is
+\begin{equation}
+ t_{\rm cool} \simeq
+ \frac{\tfrac{3}{2}n_{\rm tot}k_{\rm B}T}
+      {n_{\rm e}n_{\rm H}\Lambda(T,Z,J_{\nu})},
+ \label{eq:cooling-time}
+\end{equation}
+where $\Lambda$ includes radiative losses and, if desired, photoheating. A
+local free-fall estimate is
+\begin{equation}
+ t_{\rm ff}(r)=\left[\frac{2r}{g(r)}\right]^{1/2}.
+ \label{eq:freefall}
+\end{equation}
+When shock-heated gas cools slowly compared with its dynamical time, an
+extended hot atmosphere can persist. When cooling is rapid, cold streams,
+condensation, and radiative interfaces become important. The ratio
+$t_{\rm cool}/t_{\rm ff}$ is a diagnostic, not a universal one-number
+criterion; rotation, turbulence, uplift, conduction, magnetic topology,
+cosmic-ray pressure, and ongoing forcing all alter the outcome
+\citep{FaucherGiguereOh2023}.
+
+Pressure balance is similarly informative but not guaranteed:
+\begin{equation}
+ P_{\rm tot}=P_{\rm th}+P_{\rm turb}+P_{\rm B}+P_{\rm CR}+\cdots .
+\end{equation}
+A cool component can have $n_{\rm cool}T_{\rm cool}\neq
+n_{\rm hot}T_{\rm hot}$ while remaining confined by non-thermal pressure,
+ram pressure, gravity, or time dependence. An apparent pressure discrepancy
+between photoionization models and a coronal model may therefore diagnose
+missing physics, but it may also expose an incorrect ionizing background or
+an assumption that non-coincident velocity components form one cloud.
+
+Interfaces are disproportionately visible. Conductive boundaries,
+radiative shocks, and turbulent mixing can generate ions such as
+$\mathrm{C\,IV}$, $\mathrm{N\,V}$, $\mathrm{O\,VI}$, and
+$\mathrm{Ne\,VIII}$ while containing little of the total mass. In
+collisional ionization equilibrium, each ion fraction has a characteristic
+temperature range, but gas that cools faster than it recombines retains an
+ionization memory. Photoionization can also produce high ions at much
+lower kinetic temperature if the density is sufficiently small. Ion names
+are therefore not thermometers by themselves
+\citep{GnatSternberg2007,SutherlandDopita1993}.
+
+\section{A tracer ladder for circumgalactic gas}
+
+\subsection{Neutral hydrogen}
+
+$\mathrm{H\,I}$ is usually the entry point because the Lyman series spans an
+enormous range of column density. Ly$\alpha$ is sensitive but saturates
+readily. Higher-order Lyman lines have smaller oscillator strengths and
+recover information hidden in saturated Ly$\alpha$. At sufficiently high
+$N_{\rm H\,I}$, the continuum optical depth at the Lyman edge,
+\begin{equation}
+ \tau_{912}=N_{\rm H\,I}\sigma_{912},
+\end{equation}
+constrains the neutral column even when line cores are black. At still larger
+columns, Lorentzian damping wings determine $N_{\rm H\,I}$. The lesson is to
+design coverage of a \emph{ladder}, not a single line.
+
+Absorber names encode approximate column regimes, but boundaries vary with
+author and purpose. The Ly$\alpha$ forest generally denotes mostly
+photoionized systems below the classical Lyman-limit threshold. Partial
+Lyman-limit systems and Lyman-limit systems occupy the transition to optical
+thickness near 1 Ryd. Sub-damped and damped Ly$\alpha$ systems contain
+progressively larger neutral columns; the conventional DLA boundary is
+$N_{\rm H\,I}=2\times10^{20}\ {\rm cm^{-2}}$
+\citep{Wolfe2005}. These are observational classes, not one-to-one maps onto
+IGM, CGM, and ISM.
+
+\subsection{Low and intermediate ions}
+
+$\mathrm{Mg\,II}$, $\mathrm{C\,II}$, $\mathrm{Si\,II}$,
+$\mathrm{Fe\,II}$, and $\mathrm{O\,I}$ preferentially trace cool or
+low-ionization material. Their diagnostic value differs:
+\begin{itemize}
+  \item $\mathrm{O\,I}$ is coupled to $\mathrm{H\,I}$ by charge exchange over
+  useful conditions, making O/H comparatively direct in neutral gas.
+  \item $\mathrm{Si\,II}$ and $\mathrm{Fe\,II}$ have several transitions
+  spanning oscillator strengths, valuable for diagnosing saturation.
+  \item Refractory Fe and Si can be depleted onto dust, so gas-phase abundance
+  ratios need not equal nucleosynthetic ratios.
+  \item Mg II is observable from the ground after modest redshifting and has
+  built large statistical samples, but equivalent width mixes column,
+  velocity spread, covering fraction, and saturation.
+\end{itemize}
+
+Intermediate ions such as $\mathrm{Si\,III}$ and $\mathrm{C\,III}$ are often
+strong because they can be abundant in photoionized gas, but their strongest
+transitions saturate easily. A precise equivalent width is not necessarily a
+precise column density.
+
+\subsection{High ions and hot gas}
+
+$\mathrm{C\,IV}$, $\mathrm{N\,V}$, $\mathrm{O\,VI}$, and
+$\mathrm{Ne\,VIII}$ probe harder ionization conditions and often reveal
+interfaces or warm-hot gas. O VI is especially important because its
+$1031.93$ and $1037.62$ \AA\ doublet is accessible to far-UV spectroscopy at
+low redshift and to optical spectroscopy at sufficiently high redshift.
+Strong, extended O VI around star-forming galaxies established a major metal
+reservoir \citep{Tumlinson2011}. Yet converting $N_{\rm O\,VI}$ into oxygen
+or total gas mass requires both the ion fraction $f_{\rm O\,VI}$ and
+metallicity:
+\begin{equation}
+ N_{\rm H} =
+ \frac{N_{\rm O\,VI}}
+ {f_{\rm O\,VI}\,({\rm O/H})_{\odot}\,10^{[{\rm O/H}]}} .
+ \label{eq:ovi-correction}
+\end{equation}
+A factor-of-ten uncertainty in metallicity becomes a factor-of-ten
+uncertainty in mass.
+
+At $T\gtrsim10^{6}$ K, abundant ions emit and absorb soft X-rays. Oxygen
+$\mathrm{O\,VII}$ and $\mathrm{O\,VIII}$ are central WHIM and halo tracers;
+the Fe-L complex diagnoses hotter, metal-rich plasma. Emission scales
+approximately as $\int n_{\rm e}n_{\rm H}\Lambda_E\,{\rm d}\ell$ and is
+weighted toward dense clumps. Absorption scales as $\int n_i\,{\rm d}\ell$
+and is more sensitive to diffuse columns but requires an exceptionally bright
+background source and exquisite control of instrumental structure. The two
+methods do not sample the same density weighting.
+
+\section{The IGM as a fluctuating medium}
+
+\subsection{Photoionized forest}
+
+The classical cloud picture has largely been replaced by a continuous-density
+view. Much Ly$\alpha$ forest absorption arises in mildly overdense,
+photoionized sheets and filaments whose peculiar velocities, temperature,
+thermal broadening, and Hubble expansion shape the spectrum
+\citep{Rauch1998,McQuinn2016}. For highly ionized hydrogen in equilibrium,
+\begin{equation}
+ n_{\rm H\,I}\Gamma_{\rm H\,I}
+ \simeq n_{\rm e}n_{\rm p}\alpha_{\rm A}(T),
+ \label{eq:photoequilibrium}
+\end{equation}
+so the neutral fraction is extremely sensitive to the photoionization rate
+$\Gamma_{\rm H\,I}$ and moderately sensitive to temperature through the
+recombination coefficient. The transmitted flux is
+\begin{equation}
+ F(v)=C(v)\exp[-\tau(v)]+N(v),
+ \label{eq:forest-flux}
+\end{equation}
+with continuum $C$, absorption field $\tau$, and noise $N$. In forest
+cosmology, continuum fitting is not merely cosmetic: fitting away
+long-wavelength modes distorts the measured correlation function and must be
+represented in the forward model.
+
+A useful analytic argument sets an absorber's characteristic scale near a
+local Jeans or filtering scale. Combining photoionization equilibrium with
+that scale produces a relation between $N_{\rm H\,I}$ and gas overdensity
+\citep{Schaye2001}. The relation explains why the column-density distribution
+can encode the matter distribution, but its coefficients depend on
+temperature, ionizing background, gas fraction, and dynamical assumptions.
+It should be used as a calibrated scaling, not an exact cloud ruler.
+
+\subsection{Mean opacity, thermal history, and reionization}
+
+Even a small neutral fraction produces substantial Ly$\alpha$ opacity because
+the transition is strong. The Gunn--Peterson argument therefore constrains
+diffuse neutral hydrogen far below the fraction needed for a predominantly
+neutral Universe \citep{GunnPeterson1965}. A dark trough at high redshift does
+not by itself measure a unique neutral fraction: once Ly$\alpha$ saturates,
+small changes in transmission can correspond to a broad range of neutral
+fractions. Higher Lyman lines, damping-wing shape, proximity-zone structure,
+and ensembles of sightlines are needed.
+
+The forest also remembers heat input. Photoheating during hydrogen and
+helium reionization establishes a temperature--density relation often written
+\begin{equation}
+ T(\Delta)=T_0\Delta^{\gamma-1},
+\end{equation}
+for a restricted low-density regime, where
+$\Delta=\rho_{\rm b}/\bar{\rho}_{\rm b}$. Thermal broadening, pressure
+smoothing, and peculiar velocities affect line widths and small-scale flux
+power differently. Inferring $T_0$ and $\gamma$ therefore requires synthetic
+spectra with the instrumental line-spread function and the same continuum and
+masking operations as the data.
+
+\subsection{The warm-hot IGM}
+
+As large-scale structure grows, accretion and merger shocks heat some diffuse
+gas to $10^{5}$--$10^{7}$ K, the conventionally defined warm-hot
+intergalactic medium (WHIM) \citep{CenOstriker1999,Dave2001}. No single tracer
+is complete:
+\begin{description}
+  \item[Broad Ly$\alpha$ absorbers] are metallicity independent in principle,
+  but blends, continuum errors, and non-thermal broadening can mimic large
+  Doppler parameters.
+  \item[O VI and Ne VIII] are powerful in the UV, but their baryon conversion
+  depends on metallicity and ionization history.
+  \item[O VII and O VIII] access hotter gas in X-rays, but line equivalent
+  widths are tiny and claimed detections demand independent confirmation,
+  careful trials accounting, and stable calibration.
+  \item[Thermal Sunyaev--Zel'dovich and dispersion measures] respond to
+  electrons rather than a metal abundance, but projection and halo separation
+  are nontrivial.
+\end{description}
+Historically, "missing baryons" has meant baryons permitted by early-Universe
+constraints but absent from low-redshift inventories, not non-baryonic dark
+matter. Census estimates evolve with surveys and ionization corrections
+\citep{Bregman2007,Shull2012,PerouxHowk2020}. Individual X-ray WHIM claims,
+including influential O VII results, should be presented with their stated
+significance and subsequent replication status rather than as closure of the
+census \citep{Nicastro2018}.
+
+\section{Metals as history, not merely abundance}
+
+Metals in diffuse gas prove prior processing by stars, but translating them
+into a transport history is difficult. The logarithmic abundance is
+\begin{equation}
+ [{\rm X/H}]=
+ \log_{10}\left(\frac{N_{\rm X}}{N_{\rm H}}\right)
+ -\log_{10}\left(\frac{\rm X}{\rm H}\right)_{\odot},
+ \label{eq:metallicity}
+\end{equation}
+after ionization and depletion corrections. The adopted solar reference
+must be stated \citep{Asplund2021}. A metallicity posterior inherits
+uncertainty from $N_{\rm H\,I}$, the radiation field, gas density, relative
+abundance pattern, dust depletion, phase assignment, and atomic data.
+
+Low metallicity can support an accretion interpretation, while enhanced
+$\alpha$/Fe or N/O can encode enrichment timescales. However, metal-poor gas
+may be old IGM material mixed only weakly with winds; metal-rich gas may arise
+from outflow, recycling, stripping, or enrichment by another galaxy.
+Metallicity alone does not provide the sign of radial velocity. Observed
+metallicity distributions are also selection functions: metal-selected
+samples and H I-selected samples answer different questions. Early evidence
+for a bimodal low-redshift Lyman-limit metallicity distribution was
+scientifically influential \citep{Lehner2013}; later analyses should be
+compared at matched H I range, redshift, sensitivity, and priors rather than
+reduced to a slogan.
+
+\section{From pencil beams to maps}
+
+Absorption is extraordinarily sensitive because detectability does not suffer
+the same density-squared penalty as emission, but it sparsely samples the sky.
+Emission maps morphology but is surface-brightness limited and vulnerable to
+sky subtraction, scattered light, and resonant transfer. The strongest
+programs combine:
+\begin{enumerate}
+  \item a background quasar or galaxy grid for column density and kinematics;
+  \item deep galaxy redshifts to establish environment and impact parameters;
+  \item integral-field emission mapping for morphology and velocity;
+  \item X-ray, millimeter, or radio measurements for phases missed in the UV;
+  \item synthetic observations of simulations passed through the same
+  selection, resolution, and noise.
+\end{enumerate}
+
+At high redshift, extended Ly$\alpha$ emission can illuminate cool gas around
+galaxies and quasars. Ly$\alpha$ is resonant: a photon can emerge far from
+where it was produced and at a frequency altered by scattering through a
+moving medium. Morphology and line centroid therefore cannot be read as a
+direct emissivity or velocity map without radiative-transfer modeling.
+Non-resonant recombination lines and metal lines provide critical controls.
+
+Dense background-source fields enable tomography. Each sightline remains a
+one-dimensional convolution of density, ionization, peculiar velocity, and
+thermal state, but regularized reconstruction can reveal coherent filaments
+and voids. On much larger scales, surveys treat transmitted forest flux as a
+biased tracer and measure its auto-correlation and cross-correlation with
+quasars. DESI has demonstrated the statistical power of hundreds of
+thousands of forest spectra for baryon acoustic oscillations
+\citep{DESI2025LyA}. This regime is conceptually continuous with single-line
+analysis: both require a forward model for the continuum, absorption,
+instrument, masking, and selection.
+
+\section{A disciplined interpretation protocol}
+
+For any diffuse-gas claim, write the chain in the following order.
+\begin{enumerate}
+  \item \textbf{Observed:} normalized flux, surface brightness, equivalent
+  width, profile shape, angular separation, and their covariance.
+  \item \textbf{Instrumental:} spectral and spatial line-spread functions,
+  wavelength zero point, sensitivity, background model, detector artifacts,
+  aperture, and completeness.
+  \item \textbf{Atomic inference:} transition identity, oscillator strength,
+  column density, excitation, saturation assessment, and blend model.
+  \item \textbf{Plasma inference:} ionization mechanism, density,
+  temperature, radiation field, abundance pattern, depletion, and phase
+  association.
+  \item \textbf{Geometric inference:} distance, path length, covering
+  fraction, opening angle, inclination, and association with a galaxy or
+  filament.
+  \item \textbf{Derived physics:} total mass, flux, cooling rate, metal mass,
+  energy, and comparison with binding or feedback budgets.
+\end{enumerate}
+Uncertainty normally grows down this list. Reporting a precise equivalent
+width with a loosely constrained total mass is not contradictory; it is an
+honest consequence of the inference hierarchy.
+
+\section{Common category errors}
+
+\begin{itemize}
+  \item \textbf{Ion equals phase.} O VI can arise from collisionally ionized,
+  photoionized, non-equilibrium cooling, or mixed gas.
+  \item \textbf{Velocity equals radial motion.} A blueshift is not
+  automatically an outflow if systemic redshift, inclination, rotation, and
+  environment are uncertain.
+  \item \textbf{Equivalent width equals column.} Saturated equivalent width
+  can increase through velocity spread with little sensitivity to column.
+  \item \textbf{Emission and absorption sample the same gas.} Their density
+  weighting and selection functions differ.
+  \item \textbf{A halo boundary is observed.} $R_{\rm vir}$ is convention and
+  model; gas dynamics need not change abruptly there.
+  \item \textbf{Metallicity is origin.} Enrichment constrains history but
+  rarely identifies a unique transport channel.
+  \item \textbf{A simulation cell is a cloud.} Numerical resolution, mixing,
+  and subgrid feedback can alter synthetic absorber structure; convergence of
+  galaxy properties does not guarantee convergence of CGM interfaces.
+\end{itemize}
+
+\section{Research frontiers}
+
+Several measurements would transform the field. Closely spaced sightlines
+can determine transverse coherence and cloud sizes without assuming a path
+length. Joint UV and X-ray spectroscopy can connect cool, interface, and
+virial-temperature gas. Deep, absolutely calibrated emission mapping can
+measure faint cooling and fluorescence. Time-domain absorption against
+moving or variable background sources can probe small-scale structure.
+Finally, hierarchical analyses that fit populations rather than one absorber
+at a time can propagate non-detections, selection functions, ionizing-field
+uncertainty, and halo-to-halo scatter.
+
+The central scientific target is not a census of ion labels. It is a
+quantitative account of how mass, metals, momentum, and energy move between
+galaxies and the cosmic web. Spectral lines are the measuring apparatus, and
+their greatest power comes from combining transitions whose degeneracies are
+different.

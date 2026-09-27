@@ -1,0 +1,375 @@
+% Line Atlas chapter draft.
+% Suggested dependencies: amsmath, amssymb, siunitx, booktabs, tabularx,
+% tikz, pgfplots, xcolor, hyperref.
+
+\chapter{Stellar Feedback, Superbubbles, and Galactic Outflows}
+\label{chap:feedback-outflows}
+\chaptermark{Stellar Feedback and Galactic Outflows}
+
+Massive stars reshape their surroundings before, during, and after their deaths.
+Photoionization heats gas; radiation transfers momentum; winds and jets inflate hot
+cavities; supernovae generate shocks, metals, cosmic rays, and turbulence.  These
+channels overlap in space and time.  Their collective action can disperse molecular
+clouds, maintain a multiphase disk, launch fountains and winds, and seed the
+circumgalactic medium.
+
+``Feedback'' is not a synonym for broad lines.  It is a causal claim that a source has
+transferred energy, momentum, mass, or newly synthesized material to gas.  Establishing
+that claim requires a budget, geometry, and timescale.  Reviews spanning local and
+galactic scales include \citet{McKeeOstriker2007}, \citet{NaabOstriker2017},
+\citet{VeilleuxCecilBlandHawthorn2005}, and
+\citet{VeilleuxMaiolinoBolattoAalto2020}.
+
+\section{Bookkeeping: rates, integrated yields, and coupling}
+
+For a feedback channel with injection rate $\dot E_{\rm inj}$, only a fraction
+$\epsilon_E$ may appear as kinetic plus thermal energy of the observed phase:
+\begin{equation}
+ \dot E_{\rm phase}=\epsilon_E\dot E_{\rm inj}
+ -\dot E_{\rm rad}-\dot E_{\rm transfer}-\dot E_{\rm work}.
+ \label{eq:feedback-energy-budget}
+\end{equation}
+Similarly, momentum and mass move between phases.  A low energy measured in cool gas
+does not demonstrate weak feedback if most energy resides in a faint hot wind.
+Conversely, comparing a cool phase's momentum with a source's instantaneous rate can
+mislead if the flow accumulated over a long episode.
+
+The useful quantities have distinct dimensions:
+\begin{align}
+ \dot M_{\rm out} &\quad [M\,T^{-1}],\\
+ \dot p_{\rm out}=\dot M_{\rm out}v &\quad [M\,L\,T^{-2}],\\
+ \dot E_{\rm kin}=\tfrac12\dot M_{\rm out}v^2 &\quad [M\,L^2\,T^{-3}].
+ \label{eq:outflow-fluxes}
+\end{align}
+Papers sometimes call $p=Mv$ a ``momentum rate'' or call $E/t$ ``energy.''  Dimensional
+labels and equations prevent such ambiguities.
+
+Define mass loading relative to star formation as
+\begin{equation}
+ \eta_M=\frac{\dot M_{\rm out}}{\dot M_\star},
+ \label{eq:mass-loading}
+\end{equation}
+with analogous metal or energy loading factors.  Numerator and denominator should
+refer to compatible times and spatial boundaries.  An outflow at 10~kpc records a
+past launch episode, whereas H$\alpha$ may weight the most recent few Myr.
+
+\section{Photoionization heating and expansion}
+
+Each hydrogen photoionization leaves the excess photon energy above 13.6~eV as
+photoelectron energy, which heats the gas.  Thermal balance near $10^4$~K raises the
+pressure relative to cold molecular surroundings, driving an ionization front and
+shock.  The Str\"omgren and ideal expansion solutions in
+Chapter~\ref{chap:star-formation} provide baseline scales.
+
+Photoionization can both suppress and promote local collapse.  It erodes and
+accelerates cloud surfaces, lowers the mass available to form stars, and opens
+low-density escape channels.  Its shock can also compress pre-existing dense
+structures.  Demonstrating ``triggered'' star formation requires showing that stars
+would not have formed on the same timescale without the feedback, a counterfactual
+rarely established by spatial coincidence alone.
+
+Optical line ratios identify ionization fronts and partially ionized zones.  Enhanced
+[S\,II]/H$\alpha$ or [O\,I]/H$\alpha$ can arise in shocks, diffuse ionized gas, or hard
+radiation.  Kinematics and multiple diagnostic planes are required.  Free--free and
+recombination emission trace ionized gas even when optical emission is obscured.
+
+\section{Radiation pressure}
+
+Absorption of luminosity $L$ supplies a direct momentum rate $L/c$.  A schematic
+radiative force is
+\begin{equation}
+ \dot p_{\rm rad}\simeq
+ \left(1-e^{-\tau_{\rm UV}}+f_{\rm trap}\tau_{\rm IR}\right)\frac{L}{c}.
+ \label{eq:radiation-momentum}
+\end{equation}
+The first term accounts for direct absorption; the second is an idealized infrared
+multiple-interaction contribution.  The factor $f_{\rm trap}$ recognizes that
+porosity, radiation--matter instabilities, and geometry can reduce coupling below a
+homogeneous optical-depth estimate.  It should be constrained, not assumed to be one.
+
+Resonance-line photons also transfer momentum through repeated scattering, but dust
+destruction, frequency diffusion, and escape through velocity or spatial channels
+limit the number of effective interactions.  The emergent line profile is a probe of
+the same transfer process and cannot be interpreted as an independent intrinsic
+emission spectrum.
+
+Comparing an observed momentum flux with $L/c$ is useful, but a ratio above unity does
+not uniquely prove radiation trapping.  Energy-conserving hot gas, time variability,
+geometry, radius estimates, and phase conversion can all produce an apparent
+``momentum boost.''
+
+\section{Stellar winds and wind-blown bubbles}
+
+A stellar wind with mass-loss rate $\dot M_w$ and terminal speed $v_w$ carries
+\begin{equation}
+ \dot E_w=\frac12\dot M_wv_w^2,
+ \qquad \dot p_w=\dot M_wv_w.
+ \label{eq:stellar-wind-power}
+\end{equation}
+The freely expanding wind terminates at a reverse shock, creating a hot interior that
+pushes a swept-up shell.  For constant mechanical luminosity $L_w$ in a uniform
+ambient density $\rho_0$, the ideal energy-conserving similarity solution scales as
+\begin{equation}
+ R_b(t)=C\left(\frac{L_w}{\rho_0}\right)^{1/5}t^{3/5},
+ \qquad v_b=\frac{3R_b}{5t},
+ \label{eq:wind-bubble-scaling}
+\end{equation}
+where $C$ depends on the exact solution convention \citep{WeaverEtAl1977}.  Radiative
+cooling, conduction, turbulent mixing, leakage, density gradients, and episodic input
+alter both normalization and exponent.
+
+Bubble interiors can be faint because emissivity scales roughly as density squared.
+Soft X-ray luminosity often probes dense interfaces or mixed material rather than the
+volume-filling wind.  Optical shells trace cooled swept-up gas, and expansion may be
+seen as split profiles or coherent velocity ellipses.  A ring on the sky without
+kinematic expansion is not sufficient evidence for a bubble.
+
+\subsection{Worked example: distinguishing energy- and momentum-driven scalings}
+
+An energy-driven bubble in uniform density has $R\propto t^{3/5}$, while a shell
+driven by constant momentum injection scales approximately as $R\propto t^{1/2}$.
+Suppose a bubble has $R=100$~pc and $v=30\,\mathrm{km\,s^{-1}}$.  The similarity ages
+are
+\begin{equation}
+ t_E=\frac{3R}{5v}\simeq2.0~\mathrm{Myr},\qquad
+ t_p=\frac{R}{2v}\simeq1.6~\mathrm{Myr}.
+\end{equation}
+The difference is smaller than typical uncertainties from projection and acceleration
+through a density gradient.  Radius and speed alone rarely establish the driving
+regime; hot-gas pressure, shell mass, energy losses, and source history add leverage.
+
+\section{Supernova remnants and terminal momentum}
+
+A supernova injects ejecta mass, metals, and energy of order $10^{51}$~erg for a
+canonical energetic event.  Early free expansion gives way to a Sedov--Taylor stage
+when swept-up mass dominates.  For explosion energy $E$ in uniform density $\rho_0$,
+\begin{equation}
+ R_{\rm ST}(t)=\xi\left(\frac{Et^2}{\rho_0}\right)^{1/5},
+ \qquad v_{\rm ST}=\frac{2R_{\rm ST}}{5t}.
+ \label{eq:sedov-taylor}
+\end{equation}
+When shocked gas cools efficiently, a dense radiative shell forms.  Energy declines,
+but radial momentum continues to grow modestly before approaching a terminal value.
+Numerical calculations for representative conditions find a weak density dependence
+and terminal momentum of order a few
+$10^5\,M_\odot\,\mathrm{km\,s^{-1}}$ per event, with environment, clustering, and
+microphysics affecting the result \citep{KimOstriker2015}.
+
+An unresolved simulation that deposits thermal energy into too much mass can radiate
+it immediately and miss the physical momentum-generating stage.  Feedback
+implementations therefore require adequate resolution or a calibrated terminal
+momentum prescription.  Injecting both full energy and terminal momentum without
+accounting for the resolved stage can double count.
+
+Observed remnants span nonradiative X-ray and Balmer shocks, radiative optical shells,
+radio synchrotron structures, and molecular interactions.  Shock speeds inferred from
+line ratios or X-ray temperature should be checked against proper-motion and line-width
+measurements.  Electron and ion temperatures may not equilibrate immediately behind a
+fast collisionless shock.
+
+\section{Clustering, superbubbles, and breakout}
+
+Massive stars form in groups, so winds and supernovae overlap.  Explosions inside an
+existing low-density cavity lose less energy than isolated explosions in dense gas,
+while shell impacts and mixing can enhance cooling.  The interval between events,
+cluster compactness, ambient stratification, and pre-supernova clearing determine
+whether energy accumulates coherently.
+
+In a vertically stratified disk, a superbubble may accelerate as it reaches lower
+density, fragment, and vent hot gas into the halo.  Breakout connects local feedback
+to a galactic fountain or wind.  The dense shell may remain near the disk while hot,
+metal-rich gas escapes through channels, so mass, metal, and energy loading need not
+track each other.
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[
+ node distance=9mm and 8mm,
+ every node/.style={font=\small},
+ source/.style={draw,rounded corners,fill=yellow!18,align=center,minimum width=25mm},
+ phase/.style={draw,rounded corners,fill=blue!9,align=center,minimum width=27mm},
+ arrow/.style={->,thick}
+]
+ \node[source] (stars) {massive stars\\and clusters};
+ \node[source,below left=of stars] (rad) {ionizing and\\nonionizing radiation};
+ \node[source,below=of stars] (winds) {winds and\\jets};
+ \node[source,below right=of stars] (sn) {supernovae and\\cosmic rays};
+ \node[phase,below=17mm of winds] (cloud) {cloud disruption\\and compression};
+ \node[phase,left=of cloud] (hot) {hot cavities and\\superbubbles};
+ \node[phase,right=of cloud] (turb) {turbulence, fields,\\phase exchange};
+ \node[phase,below=of cloud] (out) {fountain or wind:\\mass, metals, energy};
+ \draw[arrow] (stars)--(rad); \draw[arrow] (stars)--(winds); \draw[arrow] (stars)--(sn);
+ \draw[arrow] (rad)--(cloud); \draw[arrow] (winds)--(hot); \draw[arrow] (sn)--(hot);
+ \draw[arrow] (sn)--(turb); \draw[arrow] (hot)--(cloud); \draw[arrow] (turb)--(cloud);
+ \draw[arrow] (hot)--(out); \draw[arrow] (cloud)--(out); \draw[arrow] (turb)--(out);
+\end{tikzpicture}
+\caption{Original feedback coupling map.  Arrows represent transfer, not a strict
+time sequence.  Observed phases exchange mass and energy, so summing independently
+derived phase rates can double count the same material.}
+\label{fig:feedback-coupling-map}
+\end{figure}
+
+\section{Cosmic rays and magnetic coupling}
+
+Supernova shocks and other accelerators populate nonthermal particles.  Cosmic rays
+contribute pressure, ionize shielded gas, heat through wave damping, and can drive
+outflows if their pressure gradient couples to plasma.  Transport may involve
+advection, diffusion, and streaming, each anisotropic in an ordered magnetic field.
+
+Gamma rays probe hadronic interactions and energetic particles; synchrotron emission
+depends on electron spectra and magnetic field; ion chemistry constrains low-energy
+ionization.  These observables sample different portions of the cosmic-ray spectrum.
+A single ``cosmic-ray energy density'' inferred from radio equipartition is not a
+direct measurement of the particles that dominate molecular ionization.
+
+Cosmic-ray-driven winds can accelerate gas more gradually than a purely thermal wind
+and may remain effective where radiative cooling removes thermal energy.  Quantitative
+predictions depend on transport coefficients and wave damping, which are not universal
+constants.  Line diagnostics of ionization state, temperature, and kinematics provide
+important indirect constraints.
+
+\section{How multiphase outflows are observed}
+
+Different tracers select different phases and geometries:
+\begin{table}[tbp]
+\centering
+\caption{Outflow tracers and principal selection effects.}
+\label{tab:outflow-tracers}
+\begin{tabularx}{\textwidth}{@{}
+ >{\raggedright\arraybackslash}p{0.19\textwidth}
+ >{\raggedright\arraybackslash}p{0.27\textwidth}
+ >{\raggedright\arraybackslash}X@{}}
+\toprule
+Phase or component & Representative diagnostics & Main selection effects \\
+\midrule
+Hot volume-filling wind & X-ray continuum and highly ionized lines & Emission weights
+dense interfaces; absorption requires a bright background; temperature and abundance
+degenerate with emission measure \\
+Warm ionized & H$\alpha$, [N\,II], [S\,II], [O\,III], UV ions & Extinction, shocks
+versus photoionization, density-squared weighting, projection and beam smearing \\
+Warm neutral & Na\,I D, Mg\,II, H\,I absorption and emission & Resonant scattering,
+stellar contamination, ionization/depletion corrections, covering fraction \\
+Molecular & CO, OH, HCN, HCO$^+$, warm H$_2$ & Conversion factor, excitation,
+opacity, abundance, interferometric filtering, orientation \\
+Dusty gas & Far-IR continuum, extinction, scattered light & Dust temperature,
+opacity, dust-to-gas ratio, foreground versus outflow geometry \\
+Cosmic rays & Synchrotron, gamma rays, ionization chemistry & Magnetic field,
+transport, loss time, unrelated AGN contribution \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Absorption detects only gas projected against a background source, yielding a
+covering-weighted pencil beam.  Emission can map the flow but strongly weights dense
+clumps.  Resonant emission may be scattered into locations far from photon production.
+Agreement of velocity alone does not prove that phases are co-spatial.
+
+\section{Mass, momentum, and energy of an outflow}
+
+For an ionized phase whose recombination luminosity is
+$L\propto n_en_pV$, mass scales as
+\begin{equation}
+ M_{\rm ion}\simeq
+ \frac{\mu m_{\rm H}L_{\rm rec}}
+ {h\nu\alpha^{\rm eff}(T)n_e},
+ \label{eq:ionized-outflow-mass}
+\end{equation}
+after extinction and contamination corrections.  Density uncertainty maps directly
+to mass uncertainty.  Density-sensitive doublets often measure bright clumps rather
+than the low-density material that may dominate volume or mass.
+
+For a thin partial shell at radius $R$ subtending solid angle $\Omega$, an absorption
+column gives
+\begin{equation}
+ M_{\rm shell}\simeq\Omega R^2\mu m_{\rm H}N_{\rm H},
+ \label{eq:shell-mass-column}
+\end{equation}
+where $N_{\rm H}$ requires ionization, abundance, depletion, and covering corrections.
+The radius is often the least directly constrained quantity for unresolved absorption.
+
+Several incompatible conventions are used for outflow rate.  For a shell crossing
+time $R/v$,
+\begin{equation}
+ \dot M_{\rm out}\simeq\frac{M_{\rm out}v}{R}.
+ \label{eq:outflow-rate-thin-shell}
+\end{equation}
+A uniformly filled steady cone may introduce a factor of order a few.  Rather than
+calling one convention correct in every geometry, authors should provide $M$, $v$,
+$R$, and the exact equation so readers can translate.
+
+Velocity choices are likewise consequential.  A centroid measures bulk shift; a
+maximum or percentile velocity emphasizes wings; deprojected speed depends on cone
+inclination.  Because energy scales as $v^2$, wing definitions dominate kinetic-power
+comparisons.
+
+\subsection{Worked example: geometry dominates an outflow rate}
+
+Suppose a molecular outflow has $M_{\rm out}=10^8M_\odot$, characteristic speed
+$v=300\,\mathrm{km\,s^{-1}}$, and radius $R=1$~kpc.  The flow-time estimate is
+\begin{equation}
+ \dot M_{\rm out}\simeq31
+ \left(\frac{M_{\rm out}}{10^8M_\odot}\right)
+ \left(\frac{v}{300\,\mathrm{km\,s^{-1}}}\right)
+ \left(\frac{R}{1\,\mathrm{kpc}}\right)^{-1}
+ M_\odot\,\mathrm{yr^{-1}}.
+\end{equation}
+If the emission is actually concentrated at 0.3~kpc, the rate rises by more than a
+factor of three.  If the molecular conversion factor shifts by a factor of four, so
+does the rate.  A formal line-flux uncertainty of five percent is not the relevant
+total uncertainty.
+
+\section{Launch, survival, and phase creation}
+
+Cool clouds placed in a fast hot wind experience ram pressure, shocks, shear, thermal
+conduction, magnetic draping, and radiative cooling.  A characteristic cloud-crushing
+time is
+\begin{equation}
+ t_{\rm cc}=\frac{\chi^{1/2}r_c}{v_{\rm rel}},
+ \label{eq:cloud-crushing-time}
+\end{equation}
+where $\chi=\rho_c/\rho_h$.  In simple nonradiative hydrodynamics, disruption can occur
+before acceleration to the hot-wind speed.  Radiative cooling in mixed gas, magnetic
+fields, conduction, self-gravity, and continuous cloud creation can extend survival
+or create new cool material in situ.
+
+Therefore cool gas at large radius need not be the same parcels launched cold from
+the disk.  It may have condensed from a mixed outflow.  Metallicity, dust survival,
+ion ratios, cloud size distribution, and velocity alignment can test origin, but no
+single diagnostic is decisive.
+
+\section{Escape, fountains, and recycling}
+
+Comparing line-of-sight velocity with an escape speed is only a first check.  The gas
+has a three-dimensional velocity distribution, the gravitational potential evolves,
+and hydrodynamic drag, cooling, and pressure forces continue after observation.  A
+parcel below local escape speed can be accelerated; one above it can transfer energy
+and fall back.
+
+Material that returns in a galactic fountain still matters: it redistributes metals
+and angular momentum, exchanges mass with the halo, and delays star formation.  The
+CGM can contain first-time inflow, recycled wind, stripped satellite gas, and material
+circulating within the halo \citep{TumlinsonPeeplesWerk2017}.  An absorption component
+labeled ``outflow'' from its velocity sign alone may be ambiguous without galaxy
+orientation and systemic-velocity precision.
+
+\section{A rigorous feedback claim}
+
+A strong feedback analysis proceeds through five tests:
+\begin{enumerate}
+ \item \textbf{Identification:} show that the spectral component is distinct from
+rotation, tidal structure, beam smearing, and unrelated foreground gas.
+ \item \textbf{Excitation:} determine whether photoionization, shocks, mixing, or an
+AGN supplies the observed lines; allow mixtures.
+ \item \textbf{Geometry:} state the aperture, radius, solid angle, inclination,
+covering fraction, and whether absorption and emission sample the same structure.
+ \item \textbf{Budget:} derive mass, momentum, and energy with conversion-factor,
+density, ionization, extinction, and phase corrections made explicit.
+ \item \textbf{Causality and fate:} compare source history with flow time and assess
+whether gas is dispersed, recycled, or escaping rather than equating detection with
+quenching.
+\end{enumerate}
+
+The ideal output is not one ``feedback efficiency'' with a tiny statistical error.
+It is a phase-resolved budget with transparent conditional ranges.  Such a budget can
+be compared meaningfully with simulations, which must apply the same apertures, line
+emissivities, and selection functions to their synthetic observations.

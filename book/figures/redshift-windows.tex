@@ -1,0 +1,20 @@
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.91\textwidth,height=8.2cm,
+  xlabel={redshift $z$},ylabel={observed wavelength [$\mu$m]},
+  xmin=0,xmax=10,ymin=0,ymax=6,
+  grid=major,grid style={AtlasNavy!10},
+  legend style={draw=none,fill=none,at={(0.02,0.98)},anchor=north west,font=\small},
+  axis line style={AtlasNavy},label style={font=\small}]
+  \addplot[draw=none,fill=AtlasCyan!12] coordinates {(0,0.6) (10,0.6) (10,5.3) (0,5.3)} \closedcycle;
+  \addplot[AtlasCoral,line width=1.5pt,domain=0:10]{0.65628*(1+x)};\addlegendentry{H$\alpha$}
+  \addplot[AtlasCyan,line width=1.5pt,domain=0:10]{0.500684*(1+x)};\addlegendentry{[O III] 5007}
+  \addplot[AtlasAmber,line width=1.5pt,domain=0:10]{0.121567*(1+x)};\addlegendentry{Ly$\alpha$}
+  \node[anchor=south east,text=AtlasCyan] at (axis cs:9.7,5.05){approximate NIRSpec span};
+\end{axis}
+\end{tikzpicture}
+\caption{Observed wavelength as a function of redshift for three familiar lines. The shaded region indicates the broad \SIrange{0.6}{5.3}{\micro\metre} NIRSpec range; actual feasibility depends on mode, resolution, sensitivity, gaps, contamination, and source surface brightness.}
+\label{fig:redshift-windows}
+\end{figure}

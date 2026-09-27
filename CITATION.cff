@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If Line Atlas supports your work, please cite the repository and the underlying scientific sources."
+title: "Line Atlas: A Field Guide to Astrophysical Spectroscopy"
+type: software
+authors:
+  - family-names: Singh
+    given-names: Tanmay
+version: 0.1.0
+date-released: 2026-09-27
+repository-code: "https://github.com/tanmay-starslab/astro-resource"
+keywords:
+  - astrophysics
+  - spectroscopy
+  - spectral lines
+  - interstellar medium
+  - circumgalactic medium
+  - intergalactic medium

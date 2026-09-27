@@ -1,0 +1,230 @@
+\chapter{How to Read the Line Atlas}
+\label{chap:foundations}
+
+Spectroscopy is a translation problem.  The detector records counts as a
+function of coordinate; the astronomer wants temperature, density, chemical
+composition, radiation field, velocity, geometry, and evolutionary history.
+A spectral transition connects those descriptions, but never by itself.  Its
+meaning depends on how the relevant state was populated, how photons propagated,
+which material shared the resolution element, and how the instrument transformed
+the incoming radiation.  This opening chapter establishes the conventions used
+throughout the atlas and a disciplined way to move from line identification to
+physical inference.
+
+\begin{conceptbox}[The central rule]
+A line is evidence for a transition of a species.  Calling it a tracer of a
+temperature, phase, or process is a model-dependent inference.  Preserve the
+distinction between what the spectrum measures and what a physical model adds.
+\end{conceptbox}
+
+\section{The information carried by a line}
+
+An isolated feature may provide several nearly independent observables:
+\begin{enumerate}[label=\arabic*.]
+  \item its centroid identifies a candidate transition and line-of-sight velocity;
+  \item its integrated flux or equivalent width measures strength relative to a
+        calibrated continuum;
+  \item its width and profile encode thermal motion, turbulence, rotation,
+        outflow, opacity, unresolved components, and the instrumental response;
+  \item a resolved doublet or multiplet tests saturation, density, optical depth,
+        and line identification;
+  \item ratios to other transitions constrain excitation, ionization, attenuation,
+        abundance, and the shape of the radiation field.
+\end{enumerate}
+These observables do not all imply the same spatial weighting.  Emissivity often
+scales as a product of two densities, while absorption optical depth is linear in
+the population of the lower state.  Bright emission therefore favors dense
+structures; absorption can detect diffuse material along a long path.
+
+For a transition between levels $u$ and $l$,
+\begin{equation}
+  h\nu_0 = E_u-E_l, \qquad \lambda_0 = \frac{c}{\nu_0}.
+  \label{eq:foundation-transition}
+\end{equation}
+The rest coordinate is a laboratory property, whereas the observed coordinate is
+altered by cosmological redshift and peculiar velocity.  To first order in
+$v/c$, a small velocity displacement from a systemic wavelength obeys
+\begin{equation}
+  \Delta v \simeq c\,\frac{\lambda-\lambda_{\rm sys}}
+                              {\lambda_{\rm sys}}.
+\end{equation}
+For high precision or large velocities one must state and use a relativistic
+Doppler convention rather than mixing radio, optical, and relativistic velocity
+definitions.
+
+\input{figures/line-processes}
+
+\section{Transition families}
+
+The atlas groups lines by mechanism as well as wavelength.  The mechanism
+determines the relevant selection rules, characteristic lifetime, and sensitivity
+to density or radiation.
+
+\begin{table}[tbp]
+\centering
+\caption{A physical taxonomy of common astronomical transitions.  The final
+column gives a tendency, not an exclusive rule.}
+\label{tab:transition-families}
+\small
+\begin{tabularx}{\textwidth}{@{}lXX X@{}}
+\toprule
+Family & Physical origin & Typical examples & Often constrains \\
+\midrule
+Permitted resonance & Electric-dipole transition from a populated lower level &
+Ly$\alpha$, C\,IV, Mg\,II & column density, covering fraction, kinematics \\
+Recombination & Cascades following radiative recombination &
+H$\alpha$, H$\beta$, He\,II, radio recombination lines & ionizing-photon rate,
+attenuation, emission measure \\
+Forbidden or semi-forbidden & Long-lived state populated collisionally &
+[O\,III], [S\,II], C\,III] & temperature, density, abundance, excitation source \\
+Fine structure & Splitting within a ground electronic term &
+[C\,II] $158\,\mu$m, [O\,I] $63\,\mu$m & gas cooling, collider density, PDR or
+ionized-gas conditions \\
+Rotational or inversion & Molecular rotation or tunnelling between configurations &
+CO, HCN, NH$_3$ & molecular excitation, mass proxies, temperature, dense gas \\
+Hyperfine & Coupling of nuclear and electronic angular momentum &
+H\,I 21 cm, OH 18 cm & neutral gas, spin temperature, magnetic field \\
+Inner-shell or nuclear & Atomic K-shell rearrangement or nuclear decay &
+Fe K$\alpha$, 511 keV, $^{26}$Al & irradiation, compact objects, nucleosynthesis \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The adjective ``forbidden'' means forbidden by the leading electric-dipole
+selection rules, not impossible.  In a sufficiently low-density plasma the upper
+state survives long enough to radiate.  At high collider density, de-excitation
+may occur collisionally before a photon escapes; this is the origin of critical
+density diagnostics.  Likewise, a molecular line with a large dipole moment is
+not automatically a unique dense-gas tracer: radiative trapping, subthermal
+excitation, abundance, infrared pumping, and beam dilution all matter.
+
+\section{Reading species and transition labels}
+
+Astronomical ion notation counts the neutral atom as stage I, so O\,VI is
+O$^{5+}$ rather than O$^{6+}$.  Square brackets denote a forbidden transition,
+as in [O\,III] $\lambda5007$; a closing bracket alone conventionally marks a
+semi-forbidden transition, as in C\,III].  A wavelength following $\lambda$ is
+usually in Angstrom unless another unit is shown.  Molecular notation instead
+specifies rotational, vibrational, inversion, or hyperfine quantum numbers, for
+example CO($J=1\!\rightarrow\!0$) or H$_2$ 1--0 S(1).
+
+The ionization threshold needed to create an ion is not the energy of the listed
+line.  The former describes removal of an electron; the latter is the separation
+of two bound levels.  Confusing them can lead to incorrect claims about the
+hardness of the radiation required to produce a feature.  Ion fractions also
+depend on recombination and charge exchange, not only threshold energy
+\citep{OsterbrockFerland2006,Draine2011}.
+
+\section{Coordinates, units, and conventions}
+
+\subsection{Vacuum and standard air wavelengths}
+
+This edition stores atomic wavelengths in vacuum unless an entry explicitly says
+otherwise.  Familiar ground-based optical names often use standard air values:
+H$\alpha$ is commonly called $6562.8$~\AA\ in air but is approximately
+$6564.6$~\AA\ in vacuum.  The difference is scientifically significant for
+precision velocities.  Conversion depends on a refractive-index prescription and
+its validity range, so an analysis must record both the input convention and the
+formula used.  NIST distinguishes observed and Ritz wavelengths and documents
+the medium used by its tabulations \citep{nist-asd}.
+
+\subsection{Use the native coordinate}
+
+At centimetre and millimetre wavelengths, observers tune to a rest frequency and
+should retain it rather than relying on a rounded wavelength conversion.  X-ray
+features are often reported in energy, while optical and ultraviolet features are
+normally reported in wavelength.  The equivalent representations obey
+\begin{equation}
+  E = h\nu = \frac{hc}{\lambda},
+  \qquad
+  \left|\frac{\Delta E}{E}\right|
+  =\left|\frac{\Delta\nu}{\nu}\right|
+  =\left|\frac{\Delta\lambda}{\lambda}\right|
+\end{equation}
+for small intervals.  Significant digits should follow the authoritative
+laboratory uncertainty and component definition, not the numerical precision of
+a unit conversion.
+
+\subsection{Flux-density transformations}
+
+Flux density per unit frequency and per unit wavelength are related by a Jacobian,
+\begin{equation}
+ f_\lambda = f_\nu\left|\frac{\mathrm d\nu}{\mathrm d\lambda}\right|
+ =f_\nu\frac{c}{\lambda^2},
+ \qquad \lambda f_\lambda=\nu f_\nu.
+\end{equation}
+A spectrum that is flat in $f_\nu$ is therefore not flat in $f_\lambda$.
+Integrated line flux remains an energy flux after integrating over a consistently
+defined coordinate, but equivalent widths and continuum slopes must retain their
+coordinate convention \citep{RybickiLightman1979}.
+
+\section{From identification to inference}
+
+A credible line identification is a network of consistency checks rather than a
+nearest-wavelength match.  The following sequence is used throughout this book.
+
+\begin{enumerate}[label=\textbf{Step \arabic*:},leftmargin=*]
+  \item \textbf{Calibrate the coordinate.} Establish the wavelength solution,
+  barycentric or local-standard-of-rest correction, air/vacuum convention, and
+  uncertainty.
+  \item \textbf{Generate candidate transitions.} Use the allowed redshift range,
+  spectral coverage, expected source class, and a current laboratory database.
+  \item \textbf{Demand companions.} Search for doublet partners, other members of
+  the same series, adjacent ionization stages, and physically expected continuum
+  features.
+  \item \textbf{Test the profile.} Compare component velocities and widths after
+  applying the line-spread function; inspect blends, sky residuals, detector
+  defects, and telluric absorption.
+  \item \textbf{Separate measurement from model.} Report flux, equivalent width,
+  centroid, width, covariance, and limits before translating them into abundance,
+  density, temperature, or mass.
+  \item \textbf{Stress-test alternatives.} Vary continuum placement, component
+  count, attenuation law, atomic data, ionization mechanism, geometry, and priors.
+\end{enumerate}
+
+\begin{cautionbox}[A non-detection is not zero]
+A non-detection constrains a line only through the noise model, assumed profile,
+searched velocity interval, and selection procedure.  Report an upper limit with
+its confidence convention and assumed width; preserve the likelihood or sensitivity
+curve when it will enter population inference.
+\end{cautionbox}
+
+\section{How each atlas entry is constructed}
+
+Each generated entry records an operational rest coordinate, physical mechanism,
+common environments, useful tracers, an indicative temperature regime, density
+guidance, diagnostic companions, observing cautions, and source keys.  The source
+hierarchy is deliberate: critically evaluated atomic or molecular databases supply
+rest data; primary papers and reviews supply interpretation; observatory documents
+supply current instrumental limits.  The prose is a guide to discovery, not a
+replacement for a live database query or a forward model.
+
+The phrase ``temperature regime'' is especially easy to overread.  A quoted
+collisional-ionization-equilibrium peak is an orientation point.  Photoionization,
+non-equilibrium cooling, shocks, mixing, charge exchange, optical depth, and an
+unresolved multiphase sightline can produce the same ion under different kinetic
+conditions.  Similarly, a critical density depends on the collider and temperature;
+an effective excitation density also depends on opacity and column.
+
+\section{A compact reporting standard}
+
+For a result to be reproducible, a line measurement should state at least:
+\begin{itemize}
+  \item transition and component, adopted rest coordinate, source database and
+        version, and air/vacuum convention;
+  \item reference frame, redshift or velocity convention, and systemic-redshift
+        uncertainty;
+  \item instrument, configuration, resolving power, sampling, aperture, and
+        line-spread-function treatment;
+  \item continuum model, integration or fitting window, blend model, and
+        attenuation correction;
+  \item flux, equivalent width, centroid, width, uncertainties and covariance, or
+        the complete upper-limit prescription;
+  \item physical model, radiation field, abundance pattern, atomic or molecular
+        data, priors, and sensitivity tests used for interpretation.
+\end{itemize}
+
+This standard may look longer than a table cell, but most fields belong in a
+machine-readable companion product.  The purpose of the atlas is to make those
+dependencies visible early, before a memorable line name hardens into an
+overconfident physical claim.
